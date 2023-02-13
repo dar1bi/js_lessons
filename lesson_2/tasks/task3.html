@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 2. Основи JS / Задача 3</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 3</h3>
+    <p>
+        Дано вартість одиниці товару і кількість. Знайти загальну вартість та ПДВ (5% від загальної вартості).
+    </p>
+
+    <script>
+        let cost = parseFloat(prompt("Введіть вартість одиниці товару (грн):", 0))
+        let amount = parseInt(prompt("Введіть кількість товару:", 0))
+        const RATE = 0.05
+
+        let totalCost = cost*amount
+        let VAT = totalCost*RATE
+
+        document.write(
+            `<table border="1">
+                <thead>
+                    <tr>
+                        <th>Знайти:</th>
+                        <th>Результат:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Загальна вартість (грн)</td>
+                        <td>${totalCost.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td>ПДВ (грн)</td>
+                        <td>${VAT.toFixed(2)}</td>
+                    </tr>
+                </tbody>
+            </table>`
+        );
+    </script>
+</body>
+</html>

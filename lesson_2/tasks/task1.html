@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 2. Основи JS / Задача 1</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 1</h3>
+    <p>
+        Знайти суму, добуток та частку двох дійсних чисел. Результат вивести у формі таблиці.
+    </p>
+        
+    <script>
+        let a = parseFloat(prompt("Введіть дійсне число a=", 0))
+        let b = parseFloat(prompt("Введіть дійсне число b=", 0))
+
+        let sum = a+b
+        let prod = a*b
+        let quot = a/b
+
+        document.write(
+            `<table border="1">
+                <thead>
+                    <tr>
+                        <th>Знайти:</th>
+                        <th>Результат:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Сума</td>
+                        <td>${sum.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td>Добуток</td>
+                        <td>${prod.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td>Частка</td>
+                        <td>${quot.toFixed(2)}</td>
+                    </tr>
+                </tbody>
+            </table>`
+        );
+    </script>
+</body>
+</html>

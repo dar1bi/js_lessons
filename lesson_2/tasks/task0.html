@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 2. Основи JS / Задача 0</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 0</h3>
+    <p>
+        Обчислити значення виразів: <br>
+        1) S1 = a+12+b <br>
+        2) S2 = &radic;<span style="text-decoration: overline;">((a+b)/2a)</span> <br>
+        3) S3 = &sup3;&radic;<span style="text-decoration: overline;">((a+b)c)</span> <br>
+        4) S4 = sin(a/-b)
+    </p>
+
+    <script>
+        let a = parseFloat(prompt("Введіть значення a:", 0))
+        let b = parseFloat(prompt("Введіть значення b:", 0))
+        let c = parseFloat(prompt("Введіть значення c:", 0))
+
+        let s1 = a+12+b
+        let s2 = Math.sqrt((a+b)/(2*a))
+        let s3 = Math.cbrt((a+b)*c)
+        let s4 = Math.sin(a/(-b))
+
+        document.write(`S1 = ${s1.toFixed(2)} <br>`);
+        document.write(`S2 = ${s2.toFixed(2)} <br>`);
+        document.write(`S3 = ${s3.toFixed(2)} <br>`);
+        document.write(`S4 = ${s4.toFixed(2)}`);
+    </script>
+</body>
+</html>
