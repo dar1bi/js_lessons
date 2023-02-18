@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 3. Алгоритми з розгалуженням / Задача 4</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 4</h3>
+    <p>
+        З клавіатури вводиться вік людини. Вивести на екран ким він є (дитиною у садочку, школярем, студентом, працівником, пенсіонером).
+    </p>
+
+    <script>
+        const userAge = parseInt(prompt("Введіть ваш вік:"))
+        const initialAge = 0
+        const maxKindergartenAge = 6
+        const maxSchoolchildAge = 17
+        const maxStudentAge = 23
+        const maxWorkerAge = 65
+        let whoIsUser = ''
+
+        if (userAge >= initialAge)
+            switch (true)
+            {
+                case userAge <  maxKindergartenAge:
+                    whoIsUser = 'Дитина у садочку'
+                    break
+                case userAge <  maxSchoolchildAge:
+                    whoIsUser = 'Школяр'
+                    break
+                case userAge <  maxStudentAge:
+                    whoIsUser = 'Студент'
+                    break
+                case userAge <  maxWorkerAge:
+                    whoIsUser = 'Працівник'
+                    break
+                default:
+                    whoIsUser = 'Пенсіонер'
+                    break
+            }
+        else 
+            whoIsUser = 'Неправильно введений вік'
+
+        document.write(whoIsUser)
+
+
+
+        // Ще залишу версію з if else, мені здається, що читабельність в даному випадку однакова, як і з switch (true), але можливо можна якось покращити:
+        
+        // if (userAge >= initialAge)
+        //     if (userAge <  maxKindergartenAge)
+        //         whoIsUser = 'Дитина у садочку'
+        //     else if (userAge <  maxSchoolchildAge)
+        //         whoIsUser = 'Школяр'
+        //     else if (userAge <  maxStudentAge)   
+        //         whoIsUser = 'Студент'
+        //     else if (userAge <  maxWorkerAge) 
+        //         whoIsUser = 'Працівник'
+        //     else   
+        //         whoIsUser = 'Пенсіонер'
+        // else
+        //     whoIsUser = 'Неправильно введений вік'
+        // 
+        // document.write(whoIsUser)
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 3. Алгоритми з розгалуженням / Задача 6</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 6</h3>
+    <p>
+        З клавіатури вводиться номер дня тижня. Вивести на екран назву дня.
+    </p>
+
+    <script>
+        const numberOfWeekDay = parseInt(prompt("Введіть номер тижня:", 1))
+        let nameOfWeekDay = ''
+
+        switch(numberOfWeekDay) 
+        {
+            case 1:
+                nameOfWeekDay = "Понеділок"
+                break
+            case 2:
+                nameOfWeekDay = "Вівторок"
+                break
+            case 3:
+                nameOfWeekDay = "Середа"
+                break
+            case 4:
+                nameOfWeekDay = "Четвер"
+                break 
+            case 5:
+                nameOfWeekDay = "П'ятниця"
+                break 
+            case 6:
+                nameOfWeekDay = "Субота"
+                break
+            case 7:
+                nameOfWeekDay = "Неділя"
+                break
+            default:
+                nameOfWeekDay = "Неправильно введений номер дня тижня."
+                break
+        }
+
+        document.write(nameOfWeekDay)
+    </script>
+</body>
+</html>

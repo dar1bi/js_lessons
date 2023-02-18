@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 3. Алгоритми з розгалуженням / Задача 7</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 7</h3>
+    <p>
+        З клавіатури вводиться номер місяця. Вивести до якої пори він відноситься.
+    </p>
+
+    <script>
+        const numberOfMonth = parseInt(prompt("Введіть номер місяця:", 1))
+        let seasonName = ''
+
+        switch(numberOfMonth)
+        {
+            case 1:
+            case 2:
+            case 12:
+                seasonName = "Зима"
+                break
+            case 3:
+            case 4:
+            case 5:
+                seasonName = "Весна"
+                break
+            case 6:
+            case 7:
+            case 8:
+                seasonName = "Літо"
+                break
+            case 9:
+            case 10:
+            case 11:
+                seasonName = "Осінь"
+                break
+            default:
+                seasonName = "Неправильно введений номер місяця."
+                break
+        }
+
+        document.write(seasonName)
+    </script>
+</body>
+</html>
