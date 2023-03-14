@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Урок 8. Функції, масиви / Задача 1</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 1</h3>
+    <p>
+        Дано масив, який містить оцінки з К предметів. Знайти середній бал і з’ясувати до якої категорії він відноситься (відмінник, двієчник (має хоча би одну двійку), хорошист (оцінки добре і відмінно), трієчник(є хоча би одна трійка)).
+    </p>
+
+    <script>
+        function randomNumbers(numbersAmount, minValue, maxValue) {
+            let randomNumbersArray = []
+
+            for (let i = 0; i < numbersAmount; i++) {
+                randomNumber = minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+                randomNumbersArray.push(randomNumber)
+            }
+
+            return randomNumbersArray
+        }
+
+        function getAvgScore(scores) {
+            let scoresSum = 0
+            for (let i = 0; i < scores.length; i++)
+                scoresSum += scores[i]
+            return scoresSum / scores.length
+        }
+
+        function getScoreCategory(scores) {
+            let studentCategory
+            let amountOfScore5 = 0
+            let amountOfScore4 = 0
+            let amountOfScore3 = 0
+            let amountOfScore2 = 0
+
+            for (let i = 0; i < scores.length; i++) {
+                switch(scores[i]) {
+                    case 1:
+                    case 2:
+                    case 3:
+                        amountOfScore2++
+                        break
+                    case 4:
+                    case 5:
+                    case 6:
+                        amountOfScore3++
+                        break
+                    case 7:
+                    case 8:
+                    case 9:
+                        amountOfScore4++
+                        break
+                    case 10:
+                    case 11:
+                    case 12:
+                        amountOfScore5++
+                        break
+                }
+            }
+
+            if (amountOfScore2 > 0) 
+                studentCategory = "Двієчник"
+            else if (amountOfScore3 > 0)
+                studentCategory = "Трієчник"
+            else if (amountOfScore4 > 0)
+                studentCategory = "Хорошист"
+            else
+                studentCategory = "Відмінник"
+
+            return studentCategory
+        }
+
+        const studentScores = randomNumbers(5, 1, 12)
+
+        document.write(`Список всіх балів: ${studentScores} <br>
+                        Середній бал: ${getAvgScore(studentScores).toFixed(1)} <br>
+                        Категорія: ${getScoreCategory(studentScores)}`)
+    </script>
+</body>
+</html>

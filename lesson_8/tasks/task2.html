@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 8. Функції, масиви / Задача 2</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 2</h3>
+    <p>
+        Дано масив, який зберігає кількість відвідувачів магазину протягом тижня. Вивести на екран:
+    </p>
+    <ul>
+        <li>номери днів, протягом яких кількість відвідувачів була меншою за 20;</li>
+        <li>номери днів, коли кількість відвідувачів була мінімальною;</li>
+        <li>номери днів, коли кількість відвідувачів була максимальною;</li>
+        <li>загальну кількість клієнтів у робочі дні та окремо загальну кількість днів на вихідних.</li>
+    </ul>
+
+    <script>
+        function randomNumbers(numbersAmount, minValue, maxValue) {
+            let randomNumbersArray = []
+
+            for (let i = 0; i < numbersAmount; i++) {
+                randomNumber = minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+                randomNumbersArray.push(randomNumber)
+            }
+
+            return randomNumbersArray
+        }
+
+        function getDaysOfVisitorsLess20 (visitorsArray) {
+            let numbersOfDay = []
+
+            for (let i = 0; i < visitorsArray.length; i++) 
+                if (visitorsArray[i] < 20) numbersOfDay.push(i+1)
+            
+            return numbersOfDay
+        }
+
+        function getDaysOfMinVisitors (visitorsArray) {
+            let minAmount = visitorsArray[0]
+            let numberOfMinAmount = 1
+            let arrayOfNumbers = []
+
+            for (let i = 1; i < visitorsArray.length; i++) {
+                if(visitorsArray[i] < minAmount) {
+                    minAmount = visitorsArray[i]
+                    numberOfMinAmount = i+1
+                }
+            }
+
+            arrayOfNumbers[0] = numberOfMinAmount
+
+            for (let i = 1; i < visitorsArray.length; i++) {
+                if (visitorsArray[i] === minAmount && numberOfMinAmount !== i+1) 
+                    arrayOfNumbers.push(i+1)
+            }
+
+            return arrayOfNumbers
+        }
+
+        function getDaysOfMaxVisitors (visitorsArray) {
+            let maxAmount = visitorsArray[0]
+            let numberOfMaxAmount = 1
+            let arrayOfNumbers = []
+
+            for (let i = 1; i < visitorsArray.length; i++) {
+                if(visitorsArray[i] > maxAmount) {
+                    maxAmount = visitorsArray[i]
+                    numberOfMaxAmount = i+1
+                }
+            }
+
+            arrayOfNumbers[0] = numberOfMaxAmount
+
+            for (let i = 1; i < visitorsArray.length; i++) {
+                if (visitorsArray[i] === maxAmount && numberOfMaxAmount !== i+1) 
+                    arrayOfNumbers.push(i+1)
+            }
+
+            return arrayOfNumbers
+        }
+
+        function getAmountOfDefinedDays (visitorsArray, startDay, endDay) {
+            let totalVisitorsAmount = 0
+
+            for (let i = startDay-1; i < endDay; i++) {
+                totalVisitorsAmount += visitorsArray[i]
+            }
+
+            return totalVisitorsAmount
+        }
+
+        let weekVisitors = randomNumbers(7, 15, 25)
+        document.write(`Відвідувачі протягом тижня: ${weekVisitors} <br>
+                        Номери днів, протягом яких кількість відвідувачів була меншою за 20: ${getDaysOfVisitorsLess20(weekVisitors)} <br>
+                        Номери днів, коли кількість відвідувачів була мінімальною: ${getDaysOfMinVisitors(weekVisitors)} <br>
+                        Номери днів, коли кількість відвідувачів була максимальною: ${getDaysOfMaxVisitors(weekVisitors)} <br>
+                        Загальна кількість клієнтів у робочі дні: ${getAmountOfDefinedDays(weekVisitors, 1, 5)} <br>
+                        Загальна кількість клієнтів у вихідні дні: ${getAmountOfDefinedDays(weekVisitors, 6, 7)}`)
+    </script>
+</body>
+</html>

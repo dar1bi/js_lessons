@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 8. Функції, масиви / Задача 5</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 5</h3>
+    <p>
+        Дано послідовність оцінок учня. Підрахувати кількість:
+    </p>
+    <ul>
+        <li>двійок;</li>
+        <li>кількість хороших оцінок (добре, відмінно);</li>
+        <li>кількість оцінок, які нижче середнього.</li>
+    </ul>
+
+    <script>
+        function randomNumbers(numbersAmount, minValue, maxValue) {
+            let randomNumbersArray = []
+
+            for (let i = 0; i < numbersAmount; i++) {
+                randomNumber = minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+                randomNumbersArray.push(randomNumber)
+            }
+
+            return randomNumbersArray
+        }
+
+        const userScores = randomNumbers(10, 1, 12)
+
+        function getDefinedScoresAmount (scoresArray, startScore, endScore) {
+            let scoresAmount = 0
+
+            for (let i = 0; i < scoresArray.length; i++) {
+                if (scoresArray[i] >= startScore && scoresArray[i] <= endScore) scoresAmount++
+            }
+
+            return scoresAmount
+        }
+
+        function getAverageScore (scoresArray) {
+            let scoresSum = 0
+
+            for (let i = 0; i < scoresArray.length; i++)
+                scoresSum += scoresArray[i]
+
+            return scoresSum / scoresArray.length
+        }
+
+        function getLowerAverageScoresAmount (scoresArray) {
+            let scoresAmount = 0
+            const avgScore = getAverageScore(scoresArray)
+
+            for (let i = 0; i < scoresArray.length; i++) {
+                if (scoresArray[i] < avgScore) scoresAmount++
+            }
+
+            return scoresAmount
+        }
+
+        document.write(`Список всіх оцінок: ${userScores} <br>
+                        Кількість двійок: ${getDefinedScoresAmount(userScores, 1, 3)} <br>
+                        Кількість хороших оцінок: ${getDefinedScoresAmount(userScores, 7, 12)} <br>
+                        Середній бал: ${getAverageScore(userScores).toFixed(2)} <br>
+                        Кількість оцінок, які нижче середнього: ${getLowerAverageScoresAmount(userScores)}`)
+    </script>
+</body>
+</html>

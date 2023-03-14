@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Урок 8. Функції, масиви / Задача 8</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 8</h3>
+    <p>
+        Дано одновимірний масив, у якому зберігається певна виграшна сума (елементи заповнюються випадковим чином значеннями від -500 до 500). Надаючи користувачу можливість вибирати номери елементів  (поки він не відмовиться). Знаходити сумарний виграш.
+    </p>
+
+    <script>
+        function randomNumbers(numbersAmount, minValue, maxValue) {
+            let randomNumbersArray = []
+
+            for (let i = 0; i < numbersAmount; i++) {
+                randomNumber = minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+                randomNumbersArray.push(randomNumber)
+            }
+
+            return randomNumbersArray
+        }
+
+        function moneyGame(winAmount, minVin, maxVin) {
+            const winArray = randomNumbers(winAmount, minVin, maxVin)
+            let userElementNumber
+            let userAnswer
+            let userWin = 0
+            // console.log(winArray)
+
+            do {
+                userElementNumber = parseInt(prompt(`Введіть номер елементу (від 1 до ${winAmount}):`, 1)) - 1
+                userAnswer = confirm(`Ви отримуєте ${winArray[userElementNumber]} грн. Бажаєте продовжити?`)
+                userWin += winArray[userElementNumber]
+            } while (userAnswer)
+
+            return userWin
+        }
+
+        document.write(`Ваша загальна сума виграшу: ${moneyGame(30, -500, 500)} грн`)
+    </script>
+</body>
+</html>

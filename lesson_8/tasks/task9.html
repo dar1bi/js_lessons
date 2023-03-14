@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 8. Функції, масиви / Задача 9</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 9</h3>
+    <p>
+        Морський бій. Користувач вводить кількість клітинок одновимірного масиву та кількість одиночних кораблів. Комп’ютер довільно розміщує ці одиночні кораблі у масиві по один у клітинці (якщо у клітинці 0, то клітинка пуста, якщо 1 – то це означає, що там є корабель. Користувач вводить номер клітинки, куди стріляє. Гра продовжується до тих пір, поки не будуть потоплені усі кораблі.
+    </p>
+
+    <script>
+        const userCellsAmount = parseInt(prompt('Введіть кількість клітинок:', 10))
+        const userShipsAmount = parseInt(prompt('Введіть кількість одиночних кораблів :', 3))
+
+        function createPlayingField (cellsAmount, shipsAmount) {
+            let randomShips = []
+            let shipsField = []
+            let randomNumberShip
+
+            for (let i = 0; i < shipsAmount; i++) {
+                do {
+                    randomNumberShip = 1 + Math.floor(Math.random() * cellsAmount)
+                } while (randomShips.includes(randomNumberShip))
+                randomShips.push(randomNumberShip)
+            }
+
+            for (let i = 0; i < cellsAmount; i++) {
+                if (randomShips.includes(i+1)) 
+                    shipsField.push(1)
+                else
+                    shipsField.push(0)
+            }
+                
+            return shipsField
+        }
+
+        function startGame (cellsAmount, shipsAmount) {
+            let userShot
+            let userShotAmount = 0
+            let gameField = createPlayingField(cellsAmount, shipsAmount)
+            do {
+                // console.log(gameField)
+                userShot = parseInt(prompt(`Введіть номер клітинки для пострілу (від 1 до ${cellsAmount}) :`, 1))
+                if (gameField[userShot-1] === 1) {
+                    gameField[userShot-1] = 0
+                    confirm("Ви потопили корабель! Натисніть ОК, щоб продовжити.")
+                } else {
+                    confirm("Ви промазали. Натисніть ОК, щоб продовжити.")
+                }
+                userShotAmount++
+            } while (gameField.includes(1))
+            confirm(`Гра завершена! Ви потопили всі кораблі за ${userShotAmount} пострілів.`)
+        }
+
+        startGame(userCellsAmount, userShipsAmount)
+    </script>
+</body>
+</html>

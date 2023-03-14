@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 8. Функції, масиви / Задача 4</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 4</h3>
+    <p>
+        Дано послідовність номерів автомобілів. Підрахувати кількість номерів, які:
+    </p>
+    <ul>
+        <li>починаються на букву «А»;</li>
+        <li>перша і остання літери співпадають;</li>
+        <li>складаються з більше ніш 5 символів;</li>
+    </ul>
+    
+    <script>
+        const carsNumbers = ['CE1234BA', 'AA1BA', 'BA2BA', 'BA12345AB', 'AE1EX', 'AH12345HA', 'AA1234AA', 'BB12345BB']
+
+        function countCarsByFirstLetter (carsArray, letter) {
+            let carsAmount = 0
+
+            for (let i = 0; i < carsArray.length; i++) {
+                if (carsArray[i].charAt(0) === letter) carsAmount++
+            }
+
+            return carsAmount
+        }
+
+        function countCarsByEqualFirstAndLastLetters (carsArray) {
+            let carsAmount = 0
+
+            for (let i = 0; i < carsArray.length; i++) {
+                if (carsArray[i].charAt(0) === carsArray[i].charAt(carsArray[i].length - 1)) carsAmount++
+            }
+
+            return carsAmount
+        }
+
+        function countCarsByMoreDefinedLetters (carsArray, symbolsAmount) {
+            let carsAmount = 0
+
+            for (let i = 0; i < carsArray.length; i++) {
+                if (carsArray[i].length > symbolsAmount) carsAmount++
+            }
+
+            return carsAmount
+        }
+
+        const firstCarLetter = 'A'
+        const symbolsAmount = 5
+        document.write(`Список всіх номерів автомобілів: ${carsNumbers} <br>
+                        Кількість номерів, які починаються на букву «${firstCarLetter}»: ${countCarsByFirstLetter(carsNumbers, firstCarLetter)} <br>
+                        Кількість номерів, в яких перша і остання літери співпадають: ${countCarsByEqualFirstAndLastLetters(carsNumbers)} <br>
+                        Кількість номерів, які складаються з більше ніш 5 символів: ${countCarsByMoreDefinedLetters(carsNumbers, symbolsAmount)}`)
+    </script>
+</body>
+</html>

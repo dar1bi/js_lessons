@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 8. Функції, масиви / Задача 3</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 3</h3>
+    <p>
+        Дано масив імен учнів. З’ясувати скільки разів зустрічається ім’я «Іван».
+    </p>
+
+    <script>
+        const studentsNames = ['Іван', 'Степан', 'Олена', 'Катерина', 'Іван', 'Дмитро', 'Олена', 'Іван']
+
+        function countName (namesArray, name) {
+            let nameAmount = 0
+
+            for (let i = 0; i < namesArray.length; i++) {
+                if (namesArray[i] === name) nameAmount++
+            }
+
+            return nameAmount
+        }
+
+        const studentName = 'Іван'
+        document.write(`Імена всіх учнів: ${studentsNames} <br>
+                        Скільки разів зустрічається ім’я «${studentName}»: ${countName(studentsNames, studentName)}`)
+    </script>
+</body>
+</html>
