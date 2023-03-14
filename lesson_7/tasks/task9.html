@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 7. Функції / Задача 9</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 9</h3>
+    <p>
+        Дано покази температур (довільна кількість). Розробити функцію, яка дозволить підрахувати кількість від’ємних показів температури.
+    </p>
+
+    <script>
+        function amountOfMinusTemperature() {
+            let minusTemperatureAmount = 0
+            for (let i = 0; i < arguments.length; i++) {
+                if(arguments[i] < 0) minusTemperatureAmount++
+            }
+            return minusTemperatureAmount
+        }
+
+        function randomTemperature(minTemperature, maxTemperature) {
+            return minTemperature + Math.floor(Math.random() * (maxTemperature - minTemperature + 1))
+        }
+
+        const minTemperature = -20
+        const maxTemperature = 30
+        //Поки генеруємо значення температур так, бо масиви на цей момент ще не розглядали
+        let temperature1 = randomTemperature(minTemperature, maxTemperature)
+        let temperature2 = randomTemperature(minTemperature, maxTemperature)
+        let temperature3 = randomTemperature(minTemperature, maxTemperature)
+        let temperature4 = randomTemperature(minTemperature, maxTemperature)
+        let temperature5 = randomTemperature(minTemperature, maxTemperature)
+        let temperature6 = randomTemperature(minTemperature, maxTemperature)
+        let temperature7 = randomTemperature(minTemperature, maxTemperature)
+        let temperature8 = randomTemperature(minTemperature, maxTemperature)
+        let temperature9 = randomTemperature(minTemperature, maxTemperature)
+        let temperature10 = randomTemperature(minTemperature, maxTemperature)
+
+        document.write(`Всі показники температур: ${temperature1}, ${temperature2}, ${temperature3}, ${temperature4}, ${temperature5},
+            ${temperature6}, ${temperature7}, ${temperature8}, ${temperature9}, ${temperature10} <br>`)
+
+        document.write(`Кількість з них від'ємних: ${amountOfMinusTemperature(temperature1, temperature2, temperature3, temperature4,
+            temperature5, temperature6, temperature7, temperature8, temperature9, temperature10)}`)      
+    </script>
+</body>
+</html>

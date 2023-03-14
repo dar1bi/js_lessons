@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 7. Функції / Задача 4</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 4</h3>
+    <p>
+        Створити функцію, яка для 3 заданих чисел знаходить одночасно декілька результатів: кількість парних, кількість додатних, кількість більших за 100.
+    </p>
+    
+    <script>
+        function getAmountOfEvenPositiveOver100 () {
+            let evenNumbersAmount = 0
+            let positiveNumbersAmount = 0
+            let over100NumbersAmount = 0
+
+            for (let i = 0; i < arguments.length; i++) {
+                if (arguments[i] % 2 === 0) evenNumbersAmount++
+                if (arguments[i] > 0) positiveNumbersAmount++
+                if (arguments[i] > 100) over100NumbersAmount++
+            }
+
+            return `Кількість парних: ${evenNumbersAmount} <br>
+                    Кількість додатних: ${positiveNumbersAmount} <br>
+                    Кількість більших за 100: ${over100NumbersAmount}`
+        }
+
+        const userNum1 = parseFloat(prompt("Введіть перше число:", 0))
+        const userNum2 = parseFloat(prompt("Введіть друге число:", 0))
+        const userNum3 = parseFloat(prompt("Введіть третє число:", 0))
+
+        document.write(getAmountOfEvenPositiveOver100(userNum1, userNum2, userNum3))
+    </script>
+</body>
+</html>

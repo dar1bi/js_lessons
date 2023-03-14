@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 7. Функції / Задача 2</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 2</h3>
+    <p>
+        Створити функцію, яка за номером дня дозволяє з’ясувати чи є цей день робочим.
+    </p>
+
+    <script>
+        function isWorkingDay(dayNumber) {  
+            return dayNumber >= 1 && dayNumber <= 5
+        }
+
+        const userMonthNumber = parseInt(prompt("Введіть номер дня:", 1))
+
+        if (isWorkingDay(userMonthNumber))
+            document.write("Робочий день")
+        else
+            document.write("Не робочий день")
+    </script>
+</body>
+</html>

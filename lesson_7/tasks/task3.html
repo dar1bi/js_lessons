@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 7. Функції / Задача 3</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 3</h3>
+    <p>
+        Створити окремі функції, які для 4 чисел знаходять:
+    </p>
+    <ol>
+        <li>суму;</li>
+        <li>добуток;</li>
+        <li>середнє арифметичне;</li>
+        <li>мінімальне значення.</li>
+    </ol>
+
+    <script>
+        function getNumberSum(num1, num2, num3, num4) {
+            return num1 + num2 + num3 + num4
+        }
+
+        function getNumberProduct(num1, num2, num3, num4) {
+            return num1 * num2 * num3 * num4
+        }
+
+        function getNumberAvg(num1, num2, num3, num4) {
+            return (num1 + num2 + num3 + num4) / 4
+        }
+
+        function getMinNumber(num1, num2, num3, num4) {
+            let minNumber = num1
+
+            if (num2 < minNumber) minNumber = num2
+            if (num3 < minNumber) minNumber = num3
+            if (num4 < minNumber) minNumber = num4
+
+            return minNumber
+        }
+
+        const userNum1 = parseFloat(prompt("Введіть перше число:", 0))
+        const userNum2 = parseFloat(prompt("Введіть друге число:", 0))
+        const userNum3 = parseFloat(prompt("Введіть третє число:", 0))
+        const userNum4 = parseFloat(prompt("Введіть четверте число:", 0))
+
+        document.write(`Сума чисел: ${getNumberSum(userNum1, userNum2, userNum3, userNum4)} <br>
+                        Добуток чисел: ${getNumberProduct(userNum1, userNum2, userNum3, userNum4)} <br>
+                        Середнє арифметичне чисел: ${getNumberAvg(userNum1, userNum2, userNum3, userNum4)} <br>
+                        Мінімальне значення: ${getMinNumber(userNum1, userNum2, userNum3, userNum4)}`)
+    </script>
+</body>
+</html>

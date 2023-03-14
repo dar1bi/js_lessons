@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 7. Функції / Задача 6</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 6</h3>
+    <p>
+        Створити функцію, яка створює таблицю з вказаною кількістю рядків і стовпців (таблиця заповнюється заданим фіксованим повідомленням).
+    </p>
+
+    <script>
+        function createTable(rowsAmount, columnsAmount, massage) {
+            let resultTable = `
+                <table border="1">
+                    <tbody>`
+            for (let i = 1; i <= rowsAmount; i++) {
+                resultTable += `<tr>`
+                for (let j = 1; j <= columnsAmount; j++) {
+                    resultTable += `<td>${massage}</td>`
+                }  
+                resultTable += `</tr>`
+            }
+            resultTable +=`
+                    </tbody>
+                </table>`
+            
+            return resultTable
+        }
+
+        const userRowsAmount = parseInt(prompt("Введіть кількість рядків:", 1))
+        const userColumnsAmount = parseInt(prompt("Введіть кількість стовпців:", 1))
+        const userMassage = prompt("Введіть фіксоване повідомлення для заповнення таблиці:", "Hello")
+
+        document.write(createTable(userRowsAmount, userColumnsAmount, userMassage))
+    </script>
+</body>
+</html>

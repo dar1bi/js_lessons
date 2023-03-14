@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Урок 7. Функції / Задача 7</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 7</h3>
+    <p>
+        Створити функцію, яка випадковим чином виводить на екран одне із 4 зображень (шляхи до зображень передаються у функцію).
+    </p>
+
+    <script>
+        function getRandomImage(srcImage1, srcImage2, srcImage3, srcImage4) {
+            randomImageNumber = 1 + Math.floor(Math.random() * 4)
+            switch(randomImageNumber) {
+                case 1: return srcImage1
+                case 2: return srcImage2
+                case 3: return srcImage3
+                case 4: return srcImage4
+            }
+        }
+
+        document.write(`<img src="${getRandomImage('../img/task7/cat_1.jpg', '../img/task7/cat_2.jpg', '../img/task7/cat_3.jpg', '../img/task7/cat_4.jpg')}" alt="Cat" height="500">`)
+    </script>
+</body>
+</html>
