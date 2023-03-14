@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 5. Цикли / Задача 13</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 13</h3>
+    <p>
+        Морський бій. Комп’ютер випадково розташовує одиночний корабель на полі розміром N*M. Маючи К снарядів користувач намагається потопити корабель. 
+    </p>
+
+    <script>
+        const coordinateX = parseInt(prompt("Введіть розмір поля X:", 3))
+        const coordinateY = parseInt(prompt("Введіть розмір поля Y:", 3))
+        const ammunitionAmount = parseInt(prompt("Введіть кількість снарядів:", 3))
+        const shipCoordinateX = 1 + Math.floor(Math.random() * coordinateX)
+        const shipCoordinateY = 1 + Math.floor(Math.random() * coordinateY)
+        let result = `Вам не вдалося потопити корабель за ${ammunitionAmount} снарядів :(`
+        let userCoordinateX
+        let userCoordinateY
+
+        for (let i = 1; i <= ammunitionAmount; i++) {
+            userCoordinateX = parseInt(prompt("Введіть координату X:", 1))
+            userCoordinateY = parseInt(prompt("Введіть координату Y:", 1))
+
+            if (shipCoordinateX === userCoordinateX && shipCoordinateY === userCoordinateY) {
+                result = `Ви потопили корабель з ${i} разу!`
+                break
+            }
+        }
+
+        document.write(result)
+    </script>
+</body>
+</html>

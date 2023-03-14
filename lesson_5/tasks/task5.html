@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 5. Цикли / Задача 5</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 5</h3>
+    <p>
+        Вивести таблицю.
+    </p>
+
+    <script>
+        const columnAmount = 3
+        const rowAmount = 3
+        let contentNumber = 0
+
+        document.write(`
+            <table border="1">
+                <tbody>
+        `)
+
+        for (let i=1; i<=rowAmount; i++) {
+            document.write(`<tr>`)
+            for (let j=1; j<=columnAmount; j++) {
+                contentNumber++
+                document.write(`<td>${contentNumber}</td>`)
+                
+            }  
+            document.write(`</tr>`)
+        }
+        
+        document.write(`
+                </tbody>
+            </table>
+        `)
+    </script>
+</body>
+</html>

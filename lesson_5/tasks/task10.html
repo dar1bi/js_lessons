@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 5. Цикли / Задача 10</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 10</h3>
+    <p>
+        Знайти суму всіх непарних чисел, що знаходяться між заданими користувачем числами. 
+    </p>
+
+    <script>
+        let firstUserNumber = parseInt(prompt("Введіть початок проміжку:", 1))
+        let secondUserNumber = parseInt(prompt("Введіть кінець проміжку:", 10))
+        let oddNumbersSum = 0
+
+        if (secondUserNumber < firstUserNumber) {
+            const replace = firstUserNumber
+            firstUserNumber = secondUserNumber
+            secondUserNumber = replace
+        }
+
+        for (let oddNumber = firstUserNumber + 1 - firstUserNumber%2; oddNumber <= secondUserNumber; oddNumber += 2)
+            oddNumbersSum += oddNumber
+
+        document.write(`Сума всіх непарних чисел = ${oddNumbersSum}`)
+    </script>
+</body>
+</html>

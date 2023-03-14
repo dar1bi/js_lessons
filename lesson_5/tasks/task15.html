@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 5. Цикли / Задача 15</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 15</h3>
+    <p>
+        Користувача поступово вводить показники температури протягом року. Знайти середню температуру.
+    </p>
+
+    <script>
+        const monthsAmount = 12
+        let userTemperature
+        let sumTemperature = 0
+        
+        for (let i = 1; i <= monthsAmount; i++) {
+            userTemperature = parseFloat(prompt(`Введіть температуру за ${i}-й місяць:`, 0))
+            sumTemperature += userTemperature
+        }
+
+        let avgTemperature = sumTemperature/monthsAmount
+
+        document.write(`Середня температура протягом року: ${avgTemperature} градусів.`)
+    </script>
+</body>
+</html>

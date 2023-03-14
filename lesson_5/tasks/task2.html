@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 5. Цикли / Задача 2</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 2</h3>
+    <p>
+        Створити 10 елементів для введення цін продуктів.
+    </p>
+
+    <script>
+        const inputAmount = 10
+
+        for (let i=1; i<=inputAmount; i++)
+            document.write(`
+                <label for="product${i}">Product #${i}</label>
+                <input id="product${i}" type="text"> <br>
+            `)
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 5. Цикли / Задача 12</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 12</h3>
+    <p>
+        Ігровий автомат. Випадково вибираємо зображення у 3 позиціях. Вибір у кожній позиції вибирається як одне з чотирьох зображень. Вивести ці зображення і повідомити виграш користувача (три перших зображення 100 грн, три других – 200, три третіх – 500, три четвертих зображення – 1000грн). Використати цикли і switch (для вибору зображення за номером).
+    </p>
+    <img src="../img/task/task12.png" alt="Task 12" style="width: 300px;"> <br><br>
+
+    <script>
+        const minImageNumber = 1
+        const maxImageNumber = 4
+        let randomImageNumber
+        let result
+        let randomNumber0
+        let randomNumber1
+        let randomNumber2
+        const firstWin = 100
+        const secondWin = 200
+        const thirdWin = 500
+        const fourthWin = 1000
+
+        for (let i = 0; i < 3; i++) {
+            randomImageNumber = minImageNumber + Math.floor(Math.random() * (maxImageNumber - minImageNumber + 1))
+            document.write(`<img src="../img/fruits/fruit_${randomImageNumber}.png" width="100" alt="Fruit ${randomImageNumber}">`)
+
+            switch (i) {
+                case 0: 
+                    randomNumber0 =  randomImageNumber
+                    break
+                case 1: 
+                    randomNumber1 =  randomImageNumber
+                    break
+                case 2: 
+                    randomNumber2 =  randomImageNumber
+                    break
+            }
+        }
+
+        if ((randomNumber0 === randomNumber1) && (randomNumber1 === randomNumber2) && (randomNumber2 === 1)) {
+            result = `<br>Ви виграли ${firstWin} грн!`
+        } else if((randomNumber0 === randomNumber1) && (randomNumber1 === randomNumber2) && (randomNumber2 === 2)) {
+            result = `<br>Ви виграли ${secondWin} грн!`
+        } else if((randomNumber0 === randomNumber1) && (randomNumber1 === randomNumber2) && (randomNumber2 === 3)) {
+            result = `<br>Ви виграли ${thirdWin} грн!`
+        } else if((randomNumber0 === randomNumber1) && (randomNumber1 === randomNumber2) && (randomNumber2 === 4)) {
+            result = `<br>Ви виграли ${fourthWin} грн!`
+        } else {
+            result = `<br>На жаль, ви нічого не виграли :( Спробуйте ще!`
+        }
+            
+        document.write(result)
+    </script>
+</body>
+</html>

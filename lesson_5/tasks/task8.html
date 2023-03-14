@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Урок 5. Цикли / Задача 8</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 8</h3>
+    <p>
+        Користувач загадує число. За 3 спроби комп’ютер намагається вгадати число користувача (використати confirm).
+    </p>
+
+    <script>
+        confirm("Загадайте про себе число від 1 до 10. Я зараз спробую його вгадати за 3 спроби. Якщо вгадав, то натисніть ОК, якщо ні - натисніть Cancel. Зараз для продовження натисніть OK.")
+        const minNumber = 1
+        const maxNumber = 10
+        const amountAttempts = 3
+        let winning
+        let randomNumber
+        let result
+
+        for (let i = 1; i <= amountAttempts; i++) {
+            randomNumber = minNumber + Math.floor(Math.random() * (maxNumber - minNumber + 1))
+            result = confirm(`Ви загадали число ${randomNumber}?`)
+
+            if (result) {
+                winning = `Комп’ютер вгадав ваше число з ${i} спроби!`
+                break
+            } else if (i == amountAttempts) {
+                winning = `Не вдалося за ${amountAttempts} спроби вгадати ваше число :(`
+            }
+        }
+
+        document.write(winning)
+    </script>
+</body>
+</html>
