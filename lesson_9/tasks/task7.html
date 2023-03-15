@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Урок 9. Масиви / Задача 7</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 7</h3>
+    <p>
+        Дано масив цін. Змінити цей масив так, що на ціни товарів, які більші за 1000 грн. дати 30% знижки.
+    </p>
+
+    <script>
+        function randomNumbers(numbersAmount, minValue, maxValue) {
+            let randomNumbersArray = []
+
+            for (let i = 0; i < numbersAmount; i++) {
+                randomNumber = minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+                randomNumbersArray.push(randomNumber)
+            }
+
+            return randomNumbersArray
+        }
+
+        const numbersArray = randomNumbers(10, 500, 1500)
+        const discount = 0.3
+
+        document.write(`Початковий масив цін: ${numbersArray} <br>`)
+
+        numbersArray.forEach (
+            (element, index, baseArrRef) => {
+                if (element > 1000) {
+                    baseArrRef[index] *= 1 - discount
+                    baseArrRef[index] = Math.round(baseArrRef[index] * 100) / 100
+                }
+            }
+        )
+
+        document.write(`Масив цін зі знижками: ${numbersArray}`)
+    </script>
+</body>
+</html>

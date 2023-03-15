@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 9. Масиви / Задача 5</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 5</h3>
+    <p>
+        Дано масив елементів. Знайти добуток додатних елементів.
+    </p>
+
+    <script>
+        function randomNumbers(numbersAmount, minValue, maxValue) {
+            let randomNumbersArray = []
+
+            for (let i = 0; i < numbersAmount; i++) {
+                randomNumber = minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+                randomNumbersArray.push(randomNumber)
+            }
+
+            return randomNumbersArray
+        }
+
+        const numbersArray = randomNumbers(10, -10, 10)
+        let positiveNumbersProduct = 1
+
+        for(let number of numbersArray) {
+            if (number > 0) positiveNumbersProduct *= number
+        }
+
+        document.write(`Початковий масив: ${numbersArray} <br>
+                        Добуток додатних елементів: ${positiveNumbersProduct}`)
+    </script>
+</body>
+</html>

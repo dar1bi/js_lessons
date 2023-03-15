@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 9. Масиви / Задача 10</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 10</h3>
+    <p>
+        Дано масив цін у грн. Податок складає 20%. Сформувати масив, який буде містити величину сплаченого податку у грн.
+    </p>
+
+    <script>
+        function randomNumbers(numbersAmount, minValue, maxValue) {
+            let randomNumbersArray = []
+
+            for (let i = 0; i < numbersAmount; i++) {
+                randomNumber = minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+                randomNumbersArray.push(randomNumber)
+            }
+
+            return randomNumbersArray
+        }
+
+        const pricesArray = randomNumbers(10, 10, 100)
+        const taxPercent = 0.2
+
+        const paidTax  = pricesArray.map(price => Math.round(price * taxPercent * 100) / 100) 
+
+        document.write(`Початковий масив цін: ${pricesArray}<br>
+                        Масив зі сплаченими податками: ${paidTax}`)
+    </script>
+</body>
+</html>
