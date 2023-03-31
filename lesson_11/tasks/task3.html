@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 11. Багатовимірні масиви / Задача 3</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 3</h3>
+    <p>
+        Морський бій. Випадковим чином на двовимірному полі розміром 6*6 розташовується 5 кораблів. Користувач стріляє вказуючи координати. Гра продовжується поки не потоплено усі кораблі або у користувача не закінчаться снаряди.
+    </p>
+
+    <script>
+
+        function getRandomNumber(minValue, maxValue) {
+            return minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+        }
+
+        function createGameField (rowsAmount, columnsAmount, shipsAmount) {
+
+            const shipsField = []
+            let randomRowNumber
+            let randomColumnNumber
+
+            for (let i = 0; i < rowsAmount; i++)
+                shipsField.push(new Array(columnsAmount).fill(0))
+
+            for (let i = 0; i < shipsAmount; i++) {
+                do {
+                    randomRowNumber = getRandomNumber(0, rowsAmount-1)
+                    randomColumnNumber = getRandomNumber(0, columnsAmount-1)
+
+                } while (shipsField[randomRowNumber][randomColumnNumber] === 1)
+
+                shipsField[randomRowNumber][randomColumnNumber] = 1
+            }
+
+            return shipsField
+        }
+
+        function startGame (gameField, shipsAmount, ammunitionAmount) {
+            let userShotAmount = 0
+            const rowsNumberMax = gameField.length - 1
+            const columnsNumberMax = gameField[0].length - 1
+
+            do {
+                // console.table(gameField)
+                const userShotRow = parseInt(prompt(`Введіть номер рядка для пострілу (від 0 до ${rowsNumberMax}) :`, 1))
+                const userShotColumn = parseInt(prompt(`Введіть номер колонки для пострілу (від 0 до ${columnsNumberMax}) :`, 1))
+                if (gameField[userShotRow][userShotColumn] === 1) {
+                    gameField[userShotRow][userShotColumn] = 0
+                    shipsAmount--
+                    confirm(`Ви потопили корабель! Залишилось ще ${shipsAmount} кораблів. Натисніть ОК, щоб продовжити.`)
+                } else {
+                    confirm("Ви промазали. Натисніть ОК, щоб продовжити.")
+                }
+                ammunitionAmount--
+                userShotAmount++
+            } while (shipsAmount > 0 && ammunitionAmount > 0)
+
+            if (shipsAmount === 0) {
+                confirm(`Гра завершена! Ви потопили всі кораблі за ${userShotAmount} пострілів.`)
+            } else {
+                confirm(`Гра завершена! Вам не вдалося потопити всі кораблі за ${userShotAmount} пострілів :(`)
+            }
+        }
+
+        const userAmmunitionAmount = parseInt(prompt('Введіть кількість снарядів:', 10))
+        const gameField = createGameField(6,6,5)
+        startGame(gameField, 5, userAmmunitionAmount)
+
+    </script>
+</body>
+</html>

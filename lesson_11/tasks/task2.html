@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 11. Багатовимірні масиви / Задача 2</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 2</h3>
+    <p>
+        Дано інформацію про прибуток К магазинів протягом тижня. Знайти:
+    </p>
+    <ol>
+        <li>загальний прибуток кожного масиву за тиждень;</li>
+        <li>загальний прибуток усіх магазинів по дням (загальний прибуток усіх магазинів за понеділок, за вівторок, і т.д.);</li>
+        <li>загальний прибуток за робочі дні;</li>
+        <li>загальний прибуток за вихідні дні;</li>
+        <li>максимальний прибуток за середу;</li>
+        <li>сформувати загальний список (одновимірний масив) зі значенням, які що більші за 200;</li>
+        <li>відсортувати кожен тиждень за зростанням;</li>
+        <li>відсортувати тижні (рядки) за спаданням максимального елементи у цьому тижні (рядку), тобто при порівнянні рядків потрібно порівнювати максимальні елементи у кожному з цих рядків;</li>
+        <li>упорядкувати тижні (рядки) за спаданням суми елементів у рядку (тобто при порівнянні двох рядків треба знайти суму кожного з рядків і порівнювати ці суми, на основі цих сум буде зрозуміло, який з елементів повинен іти раніше).</li>
+    </ol>
+    <br>
+    <h2>Розвʼязок</h2>
+
+    <script>
+        
+        // Створення рандомного числа
+        function getRandomNumber(minValue, maxValue) {
+            return minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+        }
+
+        // Створення рандомного одновимірного масиву
+        function getRandomArray(arrayLength, minValue, maxValue) {
+            const randomArray = []
+            for (let i = 0; i < arrayLength; i++) {
+                const randomNumber = getRandomNumber(minValue, maxValue)
+                randomArray.push(randomNumber)
+            }
+            return randomArray
+        }
+
+        // Створення рандомного двовимірного масиву
+        function getRandomTable(rowsAmount, columnsAmount, minValue, maxValue) {
+            const randomTable = []
+            for (let i = 0; i < rowsAmount; i++) {
+                const randomRow = getRandomArray(columnsAmount, minValue, maxValue)
+                randomTable.push(randomRow)
+            }
+            return randomTable
+        }
+
+        const userShopsAmount = parseInt(prompt('Введіть кількість магазинів:', 5))
+        const daysAmount = 7
+        const randomTableOfProfit = getRandomTable(userShopsAmount, daysAmount, 100, 300)
+        
+
+
+        // Виводимо початкову таблицю цін
+        function tableOutput(table) {
+            document.write(`
+                <table border="1" width="300px" style="text-align: center">
+                    <tbody>
+            `)
+            for (let i = 0; i < table.length; i++) {
+                document.write(`<tr>`)
+                for (let j = 0; j < table[i].length; j++)
+                    document.write(`<td>${table[i][j]}</td>`)
+                document.write(`</tr>`)
+            }
+            document.write(`
+                    </tbody>
+                </table>
+            `)
+        }
+
+        document.write('<b>Початковий масив:</b> <br>')
+        tableOutput(randomTableOfProfit)
+
+
+
+        // =============== 1. Загальний прибуток кожного масиву за тиждень ===============
+
+        function totalProfitByWeek(profitsTable) {
+            const profits = []
+            for (let i = 0; i < profitsTable.length; i++) {
+                const weekProfit = profitsTable[i].reduce((prevSum, element) => prevSum + element)
+                profits.push(weekProfit)
+            }
+            return profits
+        }
+
+        document.write(`<br><b>1. Загальний прибуток кожного масиву за тиждень:</b> ${totalProfitByWeek(randomTableOfProfit)}<br>`)
+
+
+
+        // =============== 2. Загальний прибуток усіх магазинів по дням (загальний прибуток усіх магазинів за понеділок, за вівторок, і т.д.) ===============
+
+        function totalProfitByDay(profitsTable) {
+            const profits = []
+            for (let i = 0; i < profitsTable[0].length; i++) {
+                let dayProfit = 0
+                for (let j = 0; j < profitsTable.length; j++)
+                    dayProfit += profitsTable[j][i]
+                profits.push(dayProfit)
+            }
+            return profits
+        }
+
+
+
+        document.write(`<br><b>2. Загальний прибуток усіх магазинів по дням (загальний прибуток усіх магазинів за понеділок, за вівторок, і т.д.):</b> ${totalProfitByDay(randomTableOfProfit)}<br>`)
+
+        // =============== 3. Загальний прибуток за робочі дні ===============
+
+        function totalProfitByPeriod(profitsTable, startPeriod, endPeriod) {
+            let profitSum = 0
+            for (let i = 0; i < profitsTable.length; i++)
+                for (let j = startPeriod-1; j < endPeriod; j++)
+                    profitSum += profitsTable[i][j]
+            return profitSum
+        }
+
+        document.write(`<br><b>3. Загальний прибуток за робочі дні:</b> ${totalProfitByPeriod(randomTableOfProfit, 1, 5)}<br>`)
+
+
+
+        // =============== 4. Загальний прибуток за вихідні дні ===============
+
+        document.write(`<br><b>4. Загальний прибуток за вихідні дні:</b> ${totalProfitByPeriod(randomTableOfProfit, 6, 7)}<br>`)
+
+
+
+        // =============== 5. Максимальний прибуток за середу ===============
+
+        function maxProfitByDay(profitsTable, dayNumber) {
+            const profitsByDay = []
+            for (let i = 0; i < profitsTable.length; i++) {
+                profitsByDay.push(profitsTable[i][dayNumber-1])
+            }
+            return Math.max(...profitsByDay)
+        }
+
+        document.write(`<br><b>5. Максимальний прибуток за середу:</b> ${maxProfitByDay(randomTableOfProfit, 3)}<br>`)
+
+
+
+        // =============== 6. Сформувати загальний список (одновимірний масив) зі значеннями, що більші за 200 ===============
+
+        function pricesOverNumber(profitsTable, number) {
+            const resultArray = []
+            for (let row of profitsTable) {
+                for (let element of row) {
+                    if (element > number) resultArray.push(element)
+                }
+            }
+            return resultArray
+        }
+
+        document.write(`<br><b>6. Загальний список (одновимірний масив) зі значеннями, що більші за 200:</b> ${pricesOverNumber(randomTableOfProfit, 200)}<br>`)
+
+
+
+        // =============== 7. Відсортувати кожен тиждень за зростанням ===============
+
+        // За допомогою sort
+        function sortWeek(profitsTable) {
+            const arrayForSort = JSON.parse(JSON.stringify(profitsTable))
+            for (let row of arrayForSort) {
+                row.sort((num1, num2) => num1 - num2)
+            }
+            return arrayForSort
+        }
+
+        document.write('<br><b>7. Відсортувати кожен тиждень за зростанням:</b> <br>')
+        tableOutput(sortWeek(randomTableOfProfit))
+
+
+        // Використовуючи алгоритм "Швидке сортування" - вручну
+
+        // function quickSort(array) {
+        //     if(array.length <= 1) 
+        //         return array
+        //     else {
+        //         let pivot = array[0]
+        //         let lessValues = []
+        //         let greaterValues = []
+        //         for (let i = 1; i < array.length; i++) {
+        //             if (array[i] <= pivot) lessValues.push(array[i])
+        //             else greaterValues.push(array[i])
+        //         }
+        //         return [...quickSort(lessValues), pivot, ...quickSort(greaterValues)]
+        //     }
+        // }
+
+        // function sortWeek2(profitsTable) {
+        //     return profitsTable.map(row => quickSort(row))
+        // }
+
+        // document.write('<b>7. Відсортувати кожен тиждень за зростанням (варіант 2):</b> <br>')
+        // tableOutput(sortWeek2(randomTableOfProfit))
+
+
+
+        // =============== 8. Відсортувати тижні (рядки) за спаданням максимального елемента у цьому тижні (рядку), тобто при порівнянні рядків потрібно порівнювати максимальні елементи у кожному з цих рядків ===============
+              
+        const maxWeeksElements = randomTableOfProfit.map(row => Math.max(...row))
+      
+        function sortBySomeValues(valuesArray, table) {
+            const arrayForSort = JSON.parse(JSON.stringify(table))
+
+            const preLastIndex = valuesArray.length - 1
+            for (let i = 0; i < preLastIndex; i++) {
+
+                let currentMaxIndex = i
+                for (let j = i + 1; j < valuesArray.length; j++) {
+                    if (valuesArray[j] > valuesArray[currentMaxIndex]) currentMaxIndex = j
+                }
+
+                if (i !== currentMaxIndex) {
+                    let tmp = valuesArray[i]
+                    valuesArray[i] = valuesArray[currentMaxIndex]
+                    valuesArray[currentMaxIndex] = tmp
+
+                    tmp = arrayForSort[i]
+                    arrayForSort[i] = arrayForSort[currentMaxIndex]
+                    arrayForSort[currentMaxIndex] = tmp
+                }
+            }
+            return arrayForSort
+        }
+
+        document.write('<br><b>8. Сортування за максимальним у тижні (за спаданням):</b> <br>')
+        tableOutput(sortBySomeValues(maxWeeksElements, randomTableOfProfit))
+        document.write(`Відсортований масив з максимальними: ${maxWeeksElements}<br>`)
+
+
+
+        // =============== 9. Упорядкувати тижні (рядки) за спаданням суми елементів у рядку (тобто при порівнянні двох рядків треба знайти суму кожного з рядків і порівнювати ці суми, на основі цих сум буде зрозуміло, який з елементів повинен іти раніше) ===============
+        
+        const sumByWeeks = randomTableOfProfit.map(row => row.reduce((prevValue, element) => prevValue + element))
+
+        document.write('<br><b>9. Сортування за сумою у тижні (за спаданням):</b> <br>')
+        tableOutput(sortBySomeValues(sumByWeeks, randomTableOfProfit))
+        document.write(`Відсортований масив з сумами по тижнях: ${sumByWeeks}<br>`)
+
+    </script>
+</body>
+</html>

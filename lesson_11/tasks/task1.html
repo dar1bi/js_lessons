@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 11. Багатовимірні масиви / Задача 1</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 1</h3>
+    <p>
+        Знайти суми елементів у вказаній області:
+    </p>
+    <ol>
+        <li><img src="../img/task1/array_top_left.png" alt="Array top left" height="100px"></li>
+        <li><img src="../img/task1/array_top_right.png" alt="Array top right" height="100px"></li>
+        <li><img src="../img/task1/array_bottom_left.png" alt="Array bottom left" height="100px"></li>
+        <li><img src="../img/task1/array_bottom_right.png" alt="Array bottom right" height="100px"></li>
+        <li>Суму парних рядків.</li>
+        <li>Суму непарних стовпців.</li>
+        <li>У парних рядках – непарні стовпці, у непарних – парні.</li>
+    </ol>
+    <br>
+    <h2>Розвʼязок</h2>
+
+    <script>
+        // Створення рандомного числа
+        function getRandomNumber(minValue, maxValue) {
+            return minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+        }
+
+        // Створення рандомного одновимірного масиву
+        function getRandomArray(arrayLength, minValue, maxValue) {
+            const randomArray = []
+            for (let i = 0; i < arrayLength; i++) {
+                const randomNumber = getRandomNumber(minValue, maxValue)
+                randomArray.push(randomNumber)
+            }
+            return randomArray
+        }
+
+        // Створення рандомного двовимірного масиву
+        function getRandomTable(rowsAmount, columnsAmount, minValue, maxValue) {
+            const randomTable = []
+            for (let i = 0; i < rowsAmount; i++) {
+                const randomRow = getRandomArray(columnsAmount, minValue, maxValue)
+                randomTable.push(randomRow)
+            }
+            return randomTable
+        }
+
+        const randomTable = getRandomTable(6, 8, 1, 10)
+
+
+
+        // =============== СУМА ЕЛЕМЕНТІВ У ВКАЗАНІЙ ОБЛАСТІ ===============
+
+        function getSumOfDefinedArea(array, rowStart = 0, columnStart = 0, rowEnd = array.length - 1, columnEnd = array[0].length - 1) {
+            let sum = 0
+            for (let rowNumber = rowStart; rowNumber <= rowEnd; rowNumber++) 
+                for (let columnNumber = columnStart; columnNumber <= columnEnd; columnNumber++) 
+                    sum += array[rowNumber][columnNumber] 
+            return sum
+        }
+
+        // top left
+        const sumTopLeft = getSumOfDefinedArea(randomTable, 0, 0, 2, 2)
+
+        // top right
+        const sumTopRight = getSumOfDefinedArea(randomTable, 0, 5, 2)
+
+        // bottom left
+        const sumBottomLeft = getSumOfDefinedArea(randomTable, 3, 0, 5, 2)
+
+        // bottom right
+        const sumBottomRight = getSumOfDefinedArea(randomTable, 3, 5)
+
+        
+
+        // Виводимо початкову таблицю та результати
+        function tableOutput(table) {
+            document.write(`
+                <table border="1" width="300px" style="text-align: center">
+                    <tbody>
+            `)
+            for (let i = 0; i < table.length; i++) {
+                document.write(`<tr>`)
+                for (let j = 0; j < table[i].length; j++)
+                    document.write(`<td>${table[i][j]}</td>`)
+                document.write(`</tr>`)
+            }
+            document.write(`
+                    </tbody>
+                </table> <br>
+            `)
+        }
+
+        tableOutput(randomTable)
+
+        document.write(`1. Сума в верхньому лівому куті (3х3): ${sumTopLeft}<br>
+                        2. Сума в верхньому правому куті (3х3): ${sumTopRight}<br>
+                        3. Сума в нижньому лівому куті (3х3): ${sumBottomLeft}<br>
+                        4. Сума в нижньому правому куті (3х3): ${sumBottomRight}<br>`)
+
+
+        
+        // =============== СУМА ПАРНИХ РЯДКІВ ===============
+
+        function evenRowsSum(table) {
+            const rowsNumber = table.length
+            const columnsNumber = table[0].length
+            let sum = 0
+            for (let i = 0; i < rowsNumber; i += 2) 
+                for (let j = 0; j < columnsNumber; j ++) 
+                    sum += table[i][j] 
+            return sum
+        }
+
+        document.write(`5. Сума парних рядків: ${evenRowsSum(randomTable)}<br>`)
+
+
+
+        // =============== СУМА НЕПАРНИХ СТОВПЦІВ ===============
+
+        function oddColumnsSum(table) {
+            const rowsNumber = table.length
+            const columnsNumber = table[0].length
+            let sum = 0
+            for (let i = 0; i < rowsNumber; i ++) 
+                for (let j = 1; j < columnsNumber; j += 2) 
+                    sum += table[i][j] 
+            return sum
+        }
+
+        document.write(`5. Сума непарних стовпців: ${oddColumnsSum(randomTable)}<br>`)
+
+
+
+        // =============== У ПАРНИХ РЯДКАХ – НЕПАРНІ СТОВПЦІ, У НЕПАРНИХ – ПАРНІ ===============
+
+        function chessOrderSum(table) {
+            let sum = 0
+            for (let i = 0; i < table.length; i++) {
+                let columnStartIndex = 1 - i % 2
+
+                for (let j = columnStartIndex; j < table[i].length; j += 2) 
+                    sum += table[i][j]
+            }
+            return sum
+        }
+
+        document.write(`6. У парних рядках – непарні стовпці, у непарних – парні: ${chessOrderSum(randomTable)}<br>`)
+    </script>
+</body>
+</html>
