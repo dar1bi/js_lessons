@@ -51,7 +51,7 @@
             const nextLetter = letterIterator(translatedWord)
             let guessedLettersAmount = 0
             for (let i = 0; i < translatedWord.length; i++) {
-                const userLetter = prompt(`Перекладіть англійською слово "${randomWord}". \n Введіть ${i+1} букву з маленької літери:`)
+                const userLetter = prompt(`Перекладіть англійською слово "${randomWord}". \n Введіть ${i+1} літеру з маленької літери:`)
                 if(userLetter === nextLetter()) {
                     guessedLettersAmount++
                 }
