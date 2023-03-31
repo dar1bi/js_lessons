@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 13. Рекурсія. Замикання / Задача 4</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 4</h3>
+    <p>
+        З використанням замикань розробити ітератор, тобто функцію, що буде поступово за окремими викликами видавати по одну букву наперед заданого слова. З використанням нього розробити гру «Прекладач». Виводимо для користувача опис цього слова і по одну букву користувач вводить переклад цього слова. Підрахувати кількість вгаданих букв.
+    </p>
+    
+    <script>
+
+        const gameWords = [ 'стіл', 'вилка', 'сумка', 'кава', 'їжа', 'чай', 'цукерка', 'ліжко', 'квітка', 'цукор']
+        const gameTranslations = ['table', 'fork', 'bag', 'coffee', 'food', 'tea', 'candy', 'bed', 'flower', 'sugar']
+        
+        // Створення рандомного числа
+        function getRandomNumber(minValue, maxValue) {
+            return minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+        }
+
+        // Ітератор літер в слові по одній
+        function letterIterator(word) {
+            let index = 0
+            function iterator() {
+                let currentIndex = index
+                const wordLength = word.length
+                
+                if (index < wordLength) index ++
+                else {
+                    index = 1
+                    currentIndex = 0
+                }  
+                return word[currentIndex]
+            }
+            return iterator
+        }
+
+        // Реалізація гри - один виклик випадково вибирає одне слово для перекладу
+        function gameTranslator(wordsList, translationsList) {
+
+            const randomIndex = getRandomNumber(0, wordsList.length - 1)
+            const randomWord = wordsList[randomIndex]
+            const translatedWord = translationsList[randomIndex]
+
+            const nextLetter = letterIterator(translatedWord)
+            let guessedLettersAmount = 0
+            for (let i = 0; i < translatedWord.length; i++) {
+                const userLetter = prompt(`Перекладіть англійською слово "${randomWord}". \n Введіть ${i+1} букву з маленької літери:`)
+                if(userLetter === nextLetter()) {
+                    guessedLettersAmount++
+                }
+            }
+            alert(`В слові "${translatedWord}" з ${translatedWord.length} літер вам вдалося вгадати ${guessedLettersAmount}.`)
+        }
+
+        // Викликаємо функцію гри до тих пір, поки користувач не відмовиться
+        function startGame() {
+            let userConfirm
+            do {
+                gameTranslator(gameWords, gameTranslations)
+                userConfirm = confirm(`Бажаєте продовжити гру?`)
+            } while (userConfirm)
+        }      
+  
+        startGame()
+  
+      </script>
+</body>
+</html>

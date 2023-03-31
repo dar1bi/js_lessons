@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 13. Рекурсія. Замикання / Задача 3</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 3</h3>
+    <p>
+        З використанням замикань розробити ітератор, тобто функцію, що буде поступово за окремими викликами видавати по одне значення від заданого мінімального до заданого максимального. Якщо значення досягне максимального, то наступним буде мінімальне значення. З використанням цієї функції реалізувати перебір номерів місяців.
+    </p>
+
+    <script>
+
+      function createIterator(minValue, maxValue, step) {
+        let currentValue = minValue - step
+
+        function iterator() {
+            return currentValue < maxValue ? currentValue += step : currentValue = minValue
+        }
+
+        return iterator
+      }
+
+      const monthIterator = createIterator(1, 12, 1)
+      let userConfirm
+
+      do {
+        userConfirm = confirm(monthIterator())
+      } while (userConfirm)
+      
+    </script>
+</body>
+</html>

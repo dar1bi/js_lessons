@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 13. Рекурсія. Замикання / Задача 2</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 2</h3>
+    <p>
+        Нехай X0 = X1 = 1, Xi = Xi-1 + 2Xi-2, де i = 1,2... Визначити Xn. Розв’язати з використанням рекурсивних і нерекурсивних алгоритмів.
+    </p>
+    <br>
+    <h2>Розвʼязок</h2>
+
+    <script>
+        function findNumberInSequence_Recursive (n) {
+            return n === 0 || n === 1 ? 1 : findNumberInSequence_Recursive(n-1) + 2*findNumberInSequence_Recursive(n-2)
+        }
+
+        function findNumberInSequence_Cycle (n) {
+            let result = 1
+            let prevValue2 = 1
+            for (let i = 2; i <= n; i++) {
+                let prevValue = result
+                result += 2 * prevValue2  
+                prevValue2 = prevValue
+            }
+            return result
+        }
+
+        userSequenceNumber = parseInt(prompt("Введіть номер в послідовності:", 10))
+        document.write(`X10 = ${findNumberInSequence_Recursive(userSequenceNumber)} (рекурсивний алгоритм) <br>`)
+        document.write(`X10 = ${findNumberInSequence_Cycle(userSequenceNumber)} (циклічний алгоритм)`)
+
+    </script>
+</body>
+</html>
