@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 12. Алгоритми сортування масивів / Задача 3</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 3</h3>
+    <p>
+        Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів під час сортування включеннями.
+    </p>
+    <br>
+    <h2>Розвʼязок</h2>
+
+    <script>
+        // Створення рандомного числа
+        function getRandomNumber(minValue, maxValue) {
+            return minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+        }
+
+        // Створення рандомного одновимірного масиву
+        function getRandomArray(arrayLength, minValue, maxValue) {
+            const randomArray = []
+            for (let i = 0; i < arrayLength; i++) {
+                const randomNumber = getRandomNumber(minValue, maxValue)
+                randomArray.push(randomNumber)
+            }
+            return randomArray
+        }
+
+        const randomArray = getRandomArray(30, 1, 100)
+        document.write(`Початковий масив: ${randomArray} <br>`)
+
+        function insertSort(arr) {
+            let changesAmount = 0
+
+            for (let k = 1; k < arr.length; k++) {
+                const currentElement = arr[k]
+                let i = k - 1
+                while (i >= 0 && arr[i] > currentElement) {
+                    arr[i+1] = arr[i]
+                    i = i - 1
+                    changesAmount++
+                }
+                arr[i+1] = currentElement
+            }
+
+            return changesAmount
+        }
+
+        const sortChangesAmount = insertSort(randomArray)
+
+        document.write(`Відсортований масив: ${randomArray} <br>
+                        Кількість обмінів: ${sortChangesAmount}`)
+
+    </script>
+</body>
+</html>

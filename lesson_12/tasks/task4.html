@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 12. Алгоритми сортування масивів / Задача 4</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 4</h3>
+    <p>
+        Для розглянутих методів сортування спробувати вивести етапи сортування шляхом виведення відповідних таблиць за зразком: 
+    </p>
+    <img src="../img/tasks/task_4.png" alt="Task 4" height="200">
+    <p>
+        Тобто кожного разу після обміну елементів вивести поточний стан масиву на екран.
+    </p>
+    <br>
+    <h2>Розвʼязок</h2>
+    
+    <script>
+        // Створення рандомного числа
+        function getRandomNumber(minValue, maxValue) {
+            return minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+        }
+
+        // Створення рандомного одновимірного масиву
+        function getRandomArray(arrayLength, minValue, maxValue) {
+            const randomArray = []
+            for (let i = 0; i < arrayLength; i++) {
+                const randomNumber = getRandomNumber(minValue, maxValue)
+                randomArray.push(randomNumber)
+            }
+            return randomArray
+        }
+
+        // Функція для виводу масиву у таблиці    
+        function tableOutput(table) {
+            document.write(`
+                <table border="1" width="300px" style="text-align: center">
+                    <tbody>
+            `)
+            for (let i = 0; i < table.length; i++) {
+                document.write(`<tr>`)
+                for (let j = 0; j < table[i].length; j++)
+                    document.write(`<td>${table[i][j]}</td>`)
+                document.write(`</tr>`)
+            }
+            document.write(`
+                    </tbody>
+                </table> <br>
+            `)
+        }
+
+        const randomArray = getRandomArray(5, 1, 100)
+        document.write(`<b>Початковий масив:</b> ${randomArray} <br><br>`)
+
+
+
+        // =============== СОРТУВАННЯ БУЛЬБАШКОЮ ===============
+
+        function getBubbleSortStages(inputArr) {
+            const arr = [...inputArr]
+            const sortStages = [[...inputArr]]
+            let changed
+
+            do {
+                changed = false
+                for (let i = 1; i < arr.length; i++) {
+                    if (arr[i-1] > arr[i]) {
+                        [arr[i], arr[i-1]] = [arr[i-1], arr[i]]
+                        changed = true
+                        sortStages.push([...arr])
+                    }
+                }
+            } while(changed)
+
+            return sortStages
+        }
+
+        const bubbleSortStages = getBubbleSortStages(randomArray)
+
+        document.write("<b>Етапи сортування БУЛЬБАШКОЮ:</b><br>")
+        tableOutput(bubbleSortStages)
+
+
+
+        // =============== СОРТУВАННЯ ЗМІШУВАННЯМ ===============
+
+        function getCocktailSortStages(inputArr) {
+            const arr = [...inputArr]
+            const sortStages = [[...inputArr]]
+
+            let leftIndex = 0
+            let rightIndex = arr.length - 1 
+
+            while (leftIndex < rightIndex) {
+                for (let i = leftIndex; i < rightIndex; i++) {
+                    if(arr[i] > arr[i+1]) {
+                        [arr[i], arr[i+1]] = [arr[i+1], arr[i]]
+                        sortStages.push([...arr])
+                    }
+                }
+                rightIndex--
+
+                for (let i = rightIndex; i > leftIndex; i--) {
+                    if(arr[i] < arr[i-1]) {
+                        [arr[i], arr[i-1]] = [arr[i-1], arr[i]]
+                        sortStages.push([...arr])
+                    }
+                }
+                leftIndex++
+            }
+
+            return sortStages
+        }
+
+        const cocktailSortStages = getCocktailSortStages(randomArray)
+
+        document.write("<b>Етапи сортування ЗМІШУВАННЯМ:</b><br>")
+        tableOutput(cocktailSortStages)
+
+
+
+        // =============== СОРТУВАННЯ БУЛЬБАШКОЮ ===============
+
+        function getInsertSortStages(inputArr) {
+            const arr = [...inputArr]
+            const sortStages = [[...inputArr]]
+
+            for (let k = 1; k < arr.length; k++) {
+                const currentElement = arr[k]
+                let i = k - 1
+                while (i >= 0 && arr[i] > currentElement) {
+                    arr[i+1] = arr[i]
+                    i = i - 1
+                }
+                arr[i+1] = currentElement
+                sortStages.push([...arr])
+            }
+
+            return sortStages
+        }
+
+        const insertSortStages = getInsertSortStages(randomArray)
+
+        document.write("<b>Етапи сортування ВКЛЮЧЕННЯМИ:</b><br>")
+        tableOutput(insertSortStages)
+
+    </script>
+</body>
+</html>
