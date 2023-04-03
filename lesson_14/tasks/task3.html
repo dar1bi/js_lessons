@@ -45,7 +45,7 @@
         // =============== 3. Товари, які доступні (sell_status:"available"): ===============
 
         const availableGoods = dataList.filter(object => object.sell_status === 'available')
-        document.write('<b>6. Товари, які доступні (список id цих товарів):</b> <br>')
+        document.write('<b>3. Товари, які доступні (список id цих товарів):</b> <br>')
         for (const article of availableGoods)
             document.write(`${article.id} <br>`)
 
@@ -63,7 +63,7 @@
             return prevArr
         }, [])
 
-        document.write('<b>Новий список обʼєктів тільки доступних для продажу товарів, які міститимуть тільки ідентифікатор товару (id), нову ціну (price), стару ціну (old_price), та ціну у доларах (usd_price):</b> <br>')
+        document.write('<b>4. Новий список обʼєктів тільки доступних для продажу товарів, які міститимуть тільки ідентифікатор товару (id), нову ціну (price), стару ціну (old_price), та ціну у доларах (usd_price):</b> <br>')
         for (const article of newListOfAvailableGoods)
             document.write(`${JSON.stringify(article)} <br>`)
 
@@ -85,7 +85,7 @@
         // const listOfProperties = ['id', 'price', 'old_price', 'usd_price']
         // const newObjectsList = getNewListOfAvailableGoods(dataList, listOfProperties)
 
-        // document.write('<b>Новий список обʼєктів тільки доступних для продажу товарів, які міститимуть тільки ідентифікатор товару (id), нову ціну (price), стару ціну (old_price), та ціну у доларах (usd_price):</b> <br>')
+        // document.write('<b>4. Новий список обʼєктів тільки доступних для продажу товарів, які міститимуть тільки ідентифікатор товару (id), нову ціну (price), стару ціну (old_price), та ціну у доларах (usd_price):</b> <br>')
         // for (const article of newObjectsList)
         //     document.write(`${JSON.stringify(article)} <br>`)
     
