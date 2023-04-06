@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 15. Об'єкти - продовження / Задача 0</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 0</h3>
+    <p>
+        Дано два об’єкта. Обидва містять масив цілих чисел. При цьому у одному з них є функція знаходження суми, а у іншому – функція для знаходження добутку тих, які знаходяться між заданими мінімальним і максимальних значенням.
+    </p>
+    <p>
+        Використати обидва методи стосовно обидвох об’єктів (використати call, apply).
+    </p>
+    <br>
+    <h2>Розвʼязок</h2>
+
+    <script>
+
+        // Створення рандомного числа
+        function getRandomNumber(minValue, maxValue) {
+            return minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+        }
+
+        // Створення рандомного одновимірного масиву
+        function getRandomArray(arrayLength, minValue, maxValue) {
+            const randomArray = []
+            for (let i = 0; i < arrayLength; i++) {
+                const randomNumber = getRandomNumber(minValue, maxValue)
+                randomArray.push(randomNumber)
+            }
+            return randomArray
+        }
+
+
+
+        // Описуємо обʼєкти
+        let objWithSum = {
+            numbersArr: getRandomArray(10, 1, 10),
+
+            getSum: function() {
+                return this.numbersArr.reduce((prevValue, element) => prevValue + element)
+            }
+        }
+
+        let objWithProduct = {
+            numbersArr: getRandomArray(10, 1, 10),
+
+            getProductInInterval: function(minValue, maxValue) {
+                return this.numbersArr.reduce((prevValue, element) => 
+                    element >= minValue && element <= maxValue ? prevValue * element : prevValue
+                    , 1)
+            }
+        }
+
+        // Використовуємо обидва методи стосовно обидвох об’єктів
+        document.write(`<b>Масив чисел з 1го обʼєкту:</b> ${objWithSum.numbersArr.join(', ')} <br>
+                        <b>Масив чисел з 2го обʼєкту:</b> ${objWithProduct.numbersArr.join(', ')} <br><br>`)
+
+        const minValueOfInterval = 3
+        const maxValueOfInterval = 8
+
+        const sumOfObj1 = objWithSum.getSum()
+        const sumOfObj2 = objWithSum.getSum.call(objWithProduct)
+        const productOfObj1 = objWithProduct.getProductInInterval.apply(objWithSum, [minValueOfInterval, maxValueOfInterval])
+        const productOfObj2 = objWithProduct.getProductInInterval(minValueOfInterval, maxValueOfInterval)
+
+        document.write(`<b>Сума з 1го обʼєкту:</b> ${sumOfObj1} <br>
+                        <b>Сума з 2го обʼєкту:</b> ${sumOfObj2} <br>
+                        <b>Добуток з 1го обʼєкту в проміжку [${minValueOfInterval}, ${maxValueOfInterval}]:</b> ${productOfObj1} <br>
+                        <b>Добуток з 2го обʼєкту в проміжку [${minValueOfInterval}, ${maxValueOfInterval}]:</b> ${productOfObj2}`)        
+
+    </script>
+</body>
+</html>

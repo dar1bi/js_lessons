@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 15. Об'єкти - продовження / Задача 3</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 3</h3>
+    <p>
+        Розробити клас MultChecker для перевірки таблиці множення.
+    </p>
+    <table border="1" style="border-collapse: collapse;" cellpadding="5">
+        <tbody>
+            <tr>
+                <td>Поля</td>
+                <td>Число, яке перевіряємо (наприклад, перевірка частини таблиці множення на 7)<br>
+                    Кількість правильних відповідей<br>
+                    Кількість неправильних відповідей</td>
+            </tr>
+            <tr>
+                <td>Методи</td>
+                <td>Генерування прикладу (метод випадковим чином визначає друге число, перше число фіксоване)<br>
+                    Перевірка правильності вказаної відповіді<br>
+                    render - виведення інформації про тестування на екран</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <h2>Розвʼязок</h2>
+
+    <script>
+
+        // Створення рандомного числа
+        function getRandomNumber(minValue, maxValue) {
+            return minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+        }
+
+
+
+        // Створення класу "MultChecker"
+        class MultChecker {
+            constructor(inputNumber) {
+                this.number = inputNumber
+                this.correctAnswers = 0
+                this.wrongAnswers = 0
+                this.randomNumber
+            }
+
+            randomNumberForMult() {
+                this.randomNumber = getRandomNumber(1, 10)
+            }
+
+            checkAnswer(answer) {
+                if (this.number * this.randomNumber === answer) {
+                    this.correctAnswers++
+                    return true
+                } else {
+                    this.wrongAnswers++
+                    return false
+                }
+            }
+
+            render() {
+                return `<b>Кількість правильних відповідей:</b> ${this.correctAnswers} <br>
+                        <b>Кількість неправильних відповідей:</b> ${this.wrongAnswers} <br>`
+            }
+        }
+
+        // Приклад використання класу "MultChecker"
+        const userNumber = 7
+        let userMultChecker = new MultChecker(userNumber)
+
+        do {
+            userMultChecker.randomNumberForMult()
+            const userAnswer = parseInt(prompt(`Скільки буде ${userNumber} * ${userMultChecker.randomNumber}?:`))
+            userMultChecker.checkAnswer(userAnswer) ? alert('Ваша відповідь правильна.') : alert('Ваша відповідь неправильна.')
+        } while (confirm(`Бажаєте продовжити?`))
+
+        document.write(userMultChecker.render())
+
+    </script>
+</body>
+</html>

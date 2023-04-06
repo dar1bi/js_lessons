@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 15. Об'єкти - продовження / Задача 4</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 4</h3>
+    <p>
+        Розробити клас Banner.
+    </p>
+    <table border="1" style="border-collapse: collapse;" cellpadding="5">
+        <tbody>
+            <tr>
+                <td>Поля</td>
+                <td>Масив об’єктів (графічних зображень та посилань на сайти)</td>
+            </tr>
+            <tr>
+                <td>Методи</td>
+                <td>Метод випадкового вибору об’єкта (графічного зображення та посилання)<br>
+                    Метод виведення випадкового банера</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <h2>Розвʼязок</h2>
+    
+    <script>
+
+        // Створення рандомного числа
+        function getRandomNumber(minValue, maxValue) {
+            return minValue + Math.floor(Math.random() * (maxValue - minValue + 1))
+        }
+
+
+
+        // Створення функції-конструктора "Banner"
+        function Banner(bannersArray) {
+            this.banners = bannersArray
+        }
+
+        Banner.prototype.selectRandomBanner = function() {
+            const randomIndex = getRandomNumber(0, this.banners.length - 1)
+            return this.banners[randomIndex]
+        }
+
+        Banner.prototype.outputRandomBanner = function() {
+            const randomBanner = this.selectRandomBanner()
+            return `<a href="${randomBanner.href}" target="_blank"><img src="${randomBanner.src}" alt="${randomBanner.title}"></a>`
+        }
+
+        // Виводимо випадковий банер
+        let banners = [
+            {
+                title: 'Google',
+                src: '../img/banners/google.jpg',
+                href: 'https://www.google.com/'
+            },
+            {
+                title: 'Facebook',
+                src: '../img/banners/facebook.jpg',
+                href: 'https://www.facebook.com/'
+            },
+            {
+                title: 'GitHub',
+                src: '../img/banners/github.jpg',
+                href: 'https://github.com/'
+            },
+            {
+                title: 'Apple',
+                src: '../img/banners/apple.jpg',
+                href: 'https://www.apple.com/'
+            },
+        ]
+
+        const banner = new Banner(banners)
+        document.write(banner.outputRandomBanner())
+
+    </script>
+</body>
+</html>
