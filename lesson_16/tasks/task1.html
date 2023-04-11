@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 16. Класи - інкапсуляція / Задача 1</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 1</h3>
+    <p>
+        Створити клас TDate для роботи із датами у форматі “день.місяць.рік”. Дата представляється структурою із трьома полями. Реалізувати методи збільшення/зменшення дати на певну кількість днів, місяців чи років. Введення та виведення дати реалізувати за допомогою методу toString.
+    </p>
+    <br>
+    <h2>Розвʼязок</h2>
+
+    <script>
+
+        class TDate {
+            #day
+            #month
+            #year
+            constructor(initDate) {
+                Object.assign(this, initDate)
+            }
+
+            get Day() {
+                return this.#day
+            }
+            set Day(value) {
+                if (value <= 0 || value > this.getMonthDays() || !Number.isInteger(value))
+                    throw new Error('Incorrect day number.')
+                this.#day = value
+            }
+
+            get Month() {
+                return this.#month
+            }
+            set Month(value) {
+                if (value < 1 || value > 12 || !Number.isInteger(value))
+                    throw new Error('Incorrect month number.')
+                this.#month = value
+            }
+
+            get Year() {
+                return this.#year
+            }
+            set Year(value) {
+                if (value < 0 || !Number.isInteger(value))
+                    throw new Error('Incorrect year number.')
+                this.#year = value
+            }
+
+            getMonthDays() {
+                switch (this.Month) {
+                    case 2:
+                        return this.Year % 4 === 0 && (this.Year % 100 !== 0 || this.Year % 400 === 0) ? 29 : 28
+                    case 4:
+                    case 6:
+                    case 9:
+                    case 11:
+                        return 30
+                    default:
+                        return 31
+                }      
+            }
+
+            increaseYears(value) {
+                this.Year += value
+            }
+            decreaseYears(value) {
+                this.Year -= value
+            }
+
+            increaseMonths(value) {
+                this.increaseYears(Math.floor((value + this.Month - 1) / 12))
+                this.Month = (value + this.Month - 1) % 12 + 1
+            }
+            decreaseMonths(value) {
+                this.decreaseYears(Math.ceil((value - this.Month + 1) / 12))
+                this.Month = (12 - (value % 12 - this.Month + 1)) % 12 + 1
+            }
+
+            increaseDays(value) {
+                let daysInMonth = this.getMonthDays() 
+                let allDays = this.Day + value
+
+                if (daysInMonth < allDays) {
+                    this.increaseMonths(1) 
+                    value -= daysInMonth
+                    this.increaseDays(value)
+                } else this.Day += value
+
+                // ----- Теж саме за допомогою while:
+
+                // this.Day += value
+                // let daysInMonth = this.getMonthDays() 
+                // while (daysInMonth < this.Day) {
+                //     this.Day -= daysInMonth
+                //     this.increaseMonths(1)   
+                //     daysInMonth = this.getMonthDays()                        
+                // } 
+            }
+            decreaseDays(value) {
+                let allDays = this.Day - value
+
+                if (allDays <= 0) {
+                    this.decreaseMonths(1) 
+                    value -= this.getMonthDays() 
+                    this.decreaseDays(value)
+                } else this.Day -= value
+            }
+
+            toString() {
+                return `${this.Day}.${this.Month}.${this.Year}`
+            }
+        }
+      
+
+
+        const userDate = {
+            Day: 2,
+            Month: 3,
+            Year: 2020
+        }
+
+        const date = new TDate(userDate)
+        document.write(`<b>Початкова дата:</b> ${date}<br><br>`)
+
+        const incrDays = 30
+        const decrDays = 32
+        date.increaseDays(incrDays)
+        document.write(`<b>Збільшили на ${incrDays} днів:</b> ${date}<br>`)
+        date.decreaseDays(decrDays)
+        document.write(`<b>Зменшили на ${decrDays} днів:</b> ${date}<br><br>`)
+
+        const incrMonth = 7
+        const decrMonth = 9
+        date.increaseMonths(incrMonth)
+        document.write(`<b>Збільшили на ${incrMonth} місяців:</b> ${date}<br>`)
+        date.decreaseMonths(decrMonth)
+        document.write(`<b>Зменшили на ${decrMonth} місяців:</b> ${date}<br><br>`)
+
+        const incrYear = 10
+        const decrYear = 20
+        date.increaseYears(incrYear)
+        document.write(`<b>Збільшили на ${incrYear} років:</b> ${date}<br>`)
+        date.decreaseYears(decrYear)
+        document.write(`<b>Зменшили на ${decrYear} років:</b> ${date}<br><br>`)
+
+    </script>
+</body>
+</html>

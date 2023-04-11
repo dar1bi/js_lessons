@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 16. Класи - інкапсуляція / Задача 2</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 2</h3>
+    <p>
+        Створити клас TMoney для роботи з грошовими сумами. Сума повинна зберігатися у вигляді доларового еквіваленту. Реалізувати методи додавання/вилучення грошової маси, вказуючи необхідну суму у гривнях, та визначення курсу долара, при якому сума у гривнях збільшиться на 100. Курс долара зберігати в окремому полі.
+    </p>
+    <br>
+    <h2>Розвʼязок</h2>
+
+    <script>
+
+        class TMoney {
+
+            #sumInDollar
+            #dollarRate
+            constructor(initSum, initRate) {
+                this.SumInDollar = initSum
+                this.DollarRate = initRate
+            }
+
+
+            get DollarRate() {
+                return this.#dollarRate
+            }
+            set DollarRate(value) {
+                if (value <= 0)
+                    throw new Error('The exchange rate is incorrect.')
+                this.#dollarRate = value
+            }
+
+
+            get SumInDollar() {
+                return this.#sumInDollar
+            }
+            set SumInDollar(value) {
+                if (value < 0)
+                    throw new Error('Incorrect value of amount in dollars.')
+                this.#sumInDollar = value
+            }
+
+
+            addMoney(sumUAH) {
+                this.SumInDollar += sumUAH / this.DollarRate
+            }
+            withdrawMoney(sumUAH) {
+                this.SumInDollar -= sumUAH / this.DollarRate
+            }
+            determineDollarRate(value) {
+                const dollarToUAH = this.SumInDollar * this.DollarRate
+                return this.DollarRate * (dollarToUAH + value) / dollarToUAH
+            }
+
+
+            toString() {
+                return `Sum = ${this.SumInDollar.toFixed(2)} $<br>
+                        Dollar rate = ${this.DollarRate.toFixed(2)}<br>`
+            }
+        }
+
+        const userMoney = new TMoney(100, 37)
+        document.write(`Початкові вхідні значення:<br>${userMoney}<br>`)
+
+        const increaseValue = 100
+        document.write(`Курсу долара, при якому сума у гривнях збільшиться на ${increaseValue}: ${userMoney.determineDollarRate(increaseValue).toFixed(2)}<br>`)
+
+        const addMoney = 74
+        userMoney.addMoney(addMoney)
+        document.write(`Баланс (в доларах) після збільшення суми на ${addMoney} грн: ${userMoney.SumInDollar.toFixed(2)}<br>`)
+        
+        const withdrawMoney = 37
+        userMoney.withdrawMoney(withdrawMoney)
+        document.write(`Баланс (в доларах) після зменшення суми на ${withdrawMoney} грн: ${userMoney.SumInDollar.toFixed(2)}<br>`)
+
+    </script>
+</body>
+</html>

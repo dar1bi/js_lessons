@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 16. Класи - інкапсуляція / Задача 3</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 3</h3>
+    <p>
+        Об’єкт “Фірма” (використати члени-класи)
+    </p>
+    <table border="1" style="border-collapse: collapse;" cellpadding="5">
+        <tbody>
+            <tr>
+                <td>Поля:</td>
+                <td>
+                    <ul>
+                        <li>назва фірми</li>
+                        <li>дата заснування (рік, місяць)</li>
+                        <li>послуги (назва послуги, вартість, термін виконання)</li>
+                        <li>адреси філіалів (країна, місто, вулиця, номер будинку)</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Методи:</td>
+                <td>
+                    <ul>
+                        <li>визначення кількості років існування фірми</li>
+                        <li>виведення всіх філіалів фірми у вказаному місті</li>
+                        <li>виведення на екран послуг, що можуть бути виконані за вказану суму грошей та вказаний термін часу</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <h2>Розвʼязок</h2>
+
+    <script>
+
+        // ============================== Клас Company ==============================
+
+        class Company {
+            constructor(initData) {
+                this.title = initData.title
+                this.foundationDate = new DateFormat(initData)
+                this.services = initData.services
+                this.branchesAddresses = initData.branchesAddresses
+            }
+
+            getYearsOfExistence() {
+                return new Date().getFullYear() - this.foundationDate.Year
+            }
+
+            getBranchesInCity(city) {
+                return this.branchesAddresses.filter(object => object.City === city)
+            }
+
+
+            getServicesByMoneyAndDeadline(moneyAmount, deadline) {
+                return this.services.filter(object => {
+                    if (object.Price <= moneyAmount) {
+                        if (object.deadline.Year < deadline.Year) return true
+                        if(object.deadline.Year === deadline.Year && object.deadline.Month < deadline.Month) return true
+                        if(object.deadline.Month === deadline.Month && object.deadline.Day <= deadline.Day) return true
+                    }
+                })
+            }
+
+            toString() {
+                let services = ''
+                let branches = ''
+                for (const service of this.services)
+                    services += `${service.Title}, `
+                for (const branch of this.branchesAddresses)
+                    branches += `${branch}<br>`
+
+                return `<b>Назва фірми:</b> '${this.title}'<br>
+                        <b>Дата заснування:</b> ${this.foundationDate}<br>
+                        <b>Доступні послуги:</b> ${services}<br>
+                        <b>Адреси філіалів:</b> <br> ${branches}`
+            }
+
+        }
+
+
+
+        // ============================== Клас DateFormat ==============================
+
+        // Клас, який може повертати 2 формати дати, в залежності від номеру дня:
+        // Якщо day = 0, то повертаємо дату у форматі 'month - year'
+        // Якщо day > 0, то повертаємо дату у форматі 'day - month - year'
+        class DateFormat {
+            #year
+            #month
+            #day
+            constructor({year, month, day}) {
+                this.Year = year
+                this.Month = month
+                this.Day = day
+            }
+
+            getMonthDays() {
+                switch (this.Month) {
+                    case 2:
+                        return this.Year % 4 === 0 && (this.Year % 100 !== 0 || this.Year % 400 === 0) ? 29 : 28
+                    case 4:
+                    case 6:
+                    case 9:
+                    case 11:
+                        return 30
+                    default:
+                        return 31
+                }      
+            }
+
+            get Day() {
+                return this.#day
+            }
+            set Day(value) {
+                if (value < 0 || value > this.getMonthDays() || !Number.isInteger(value))
+                    throw new Error('Incorrect day number.')
+                this.#day = value
+            }
+
+            get Month() {
+                return this.#month
+            }
+            set Month(value) {
+                if (value < 1 || value > 12 || !Number.isInteger(value))
+                    throw new Error('Incorrect month number.')
+                this.#month = value
+            }
+
+            get Year() {
+                return this.#year
+            }
+            set Year(value) {
+                if (value < 0 || !Number.isInteger(value))
+                    throw new Error('Incorrect year number.')
+                this.#year = value
+            }
+
+            toString() {
+                return this.Day === 0 ? `${this.Month}-${this.Year}` : `${this.Day}-${this.Month}-${this.Year}`
+            }
+        }
+
+
+
+        // ============================== Клас Service ==============================
+
+        class Service {
+            #title
+            #price
+            constructor (initData) {
+                this.Title = initData.title
+                this.Price = initData.price
+                // В даному випадку вирішила дедлайн зробити не кількістю днів, за яку буде виконана послуга, 
+                // а до конкретної дати, щоб ще раз використати клас DateFormat
+                this.deadline = new DateFormat(initData)
+            }
+
+            get Title() {
+                return this.#title
+            }
+            set Title(value) {
+                if (value.trim() === '')
+                    throw new Error('Incorrect service title.')
+                this.#title = value
+            }
+
+            get Price() {
+                return this.#price
+            }
+            set Price(value) {
+                if (isNaN(value) || value < 0)
+                    throw new Error('Incorrect service price.')
+                this.#price = value
+            }
+
+            toString() {
+                return `Назва: ${this.Title}<br>
+                        Ціна: ${this.Price}<br>
+                        Термін виконання: ${this.deadline}<br>`
+            }
+        }
+
+
+
+        // ============================== Клас BranchesAddresses ==============================
+
+        class BranchesAddresses {
+            #country
+            #city
+            #street
+            #buildingNumber
+            constructor (country, city, street, buildingNumber) {
+                this.Country = country
+                this.City = city
+                this.Street = street
+                this.BuildingNumber = buildingNumber
+            }
+
+            // Перевірку в даному випадку робимо просту. В ідеалі перевірять через список всіх країн, міст і т.д.
+            get Country() {
+                return this.#country
+            }
+            set Country(value) {
+                if (value.trim() === '')
+                    throw new Error('Incorrect country name.')
+                this.#country = value
+            }
+
+            get City() {
+                return this.#city
+            }
+            set City(value) {
+                if (value.trim() === '')
+                    throw new Error('Incorrect city name.')
+                this.#city = value
+            }
+
+            get Street() {
+                return this.#street
+            }
+            set Street(value) {
+                if (value.trim() === '')
+                    throw new Error('Incorrect street name.')
+                this.#street = value
+            }
+
+            get BuildingNumber() {
+                return this.#buildingNumber
+            }
+            set BuildingNumber(value) {
+                // Очікуємо, що вводиться або тільки номер будинку, або номер будинку з літерою у вигляді string
+                if (!isNaN(value) && value < 0) {
+                    throw new Error('Incorrect building number.')
+                }
+                if (typeof value === 'string' && value.trim() === '') {
+                    throw new Error('Incorrect building number.')
+                }
+                this.#buildingNumber = value
+            }
+
+            toString() {
+                return `${this.Country}, м. ${this.City}, ${this.Street}, ${this.BuildingNumber}`
+            }
+        }
+
+
+
+        // ============================== Використання класів ==============================
+
+        const userCompany = new Company({
+            title: 'Відбудова',
+            day: 0,
+            month: 10,
+            year: 2019,
+            services: [
+                new Service ({
+                    title: 'Штукатурні роботи',
+                    price: 40000,
+                    day: 10,
+                    month: 8,
+                    year: 2023,
+                }),
+                new Service ({
+                    title: 'Фарбування стін',
+                    price: 15000,
+                    day: 15,
+                    month: 11,
+                    year: 2024,
+                }),
+                new Service ({
+                    title: 'Електромонтажні роботи',
+                    price: 35000,
+                    day: 20,
+                    month: 7,
+                    year: 2023,
+                }),
+            ],
+            branchesAddresses: [
+                new BranchesAddresses('Україна', 'Київ', 'бульв. Марії Приймаченко', 3),
+                new BranchesAddresses('Україна', 'Київ', 'вул. Садова', '31-Б'),
+                new BranchesAddresses('Україна', 'Львів', 'вул. Ужгородська', 13),
+                new BranchesAddresses('Україна', 'Харків', 'вул. Ковальська', '12-А'),
+            ]
+        })
+
+        const userCity = 'Київ'
+        const userMoney = 40000
+        const userDeadline = new DateFormat({day: 10, month: 11, year: 2024})
+        document.write(`<u>Інформація про фірму:</u> <br>${userCompany} <br>
+                        <b>Кількість років існування фірми:</b> ${userCompany.getYearsOfExistence()}<br><br>
+                        <b>Філіали в місті ${userCity}:</b><br> ${userCompany.getBranchesInCity(userCity).join(`<br>`)}<br><br>
+                        <b>Послуги, що можуть бути виконані до ${userMoney} грн та до ${userDeadline}:</b><br>
+                        ${userCompany.getServicesByMoneyAndDeadline(userMoney, userDeadline).join('<br>')}`)
+
+    </script>
+</body>
+</html>
