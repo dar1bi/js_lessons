@@ -19,14 +19,12 @@
     <script>
 
         class TMoney {
-
             #sumInDollar
             #dollarRate
             constructor(initSum, initRate) {
                 this.SumInDollar = initSum
                 this.DollarRate = initRate
             }
-
 
             get DollarRate() {
                 return this.#dollarRate
@@ -37,7 +35,6 @@
                 this.#dollarRate = value
             }
 
-
             get SumInDollar() {
                 return this.#sumInDollar
             }
@@ -46,7 +43,6 @@
                     throw new Error('Incorrect value of amount in dollars.')
                 this.#sumInDollar = value
             }
-
 
             addMoney(sumUAH) {
                 this.SumInDollar += sumUAH / this.DollarRate
@@ -59,7 +55,6 @@
                 return this.DollarRate * (dollarToUAH + value) / dollarToUAH
             }
 
-
             toString() {
                 return `Sum = ${this.SumInDollar.toFixed(2)} $<br>
                         Dollar rate = ${this.DollarRate.toFixed(2)}<br>`
@@ -67,18 +62,18 @@
         }
 
         const userMoney = new TMoney(100, 37)
-        document.write(`Початкові вхідні значення:<br>${userMoney}<br>`)
+        document.write(`<b>Початкові вхідні значення:</b><br>${userMoney}<br>`)
 
         const increaseValue = 100
-        document.write(`Курсу долара, при якому сума у гривнях збільшиться на ${increaseValue}: ${userMoney.determineDollarRate(increaseValue).toFixed(2)}<br>`)
+        document.write(`<b>Курсу долара, при якому сума у гривнях збільшиться на ${increaseValue}:</b> ${userMoney.determineDollarRate(increaseValue).toFixed(2)}<br>`)
 
         const addMoney = 74
         userMoney.addMoney(addMoney)
-        document.write(`Баланс (в доларах) після збільшення суми на ${addMoney} грн: ${userMoney.SumInDollar.toFixed(2)}<br>`)
+        document.write(`<b>Баланс (в доларах) після збільшення суми на ${addMoney} грн:</b> ${userMoney.SumInDollar.toFixed(2)}<br>`)
         
         const withdrawMoney = 37
         userMoney.withdrawMoney(withdrawMoney)
-        document.write(`Баланс (в доларах) після зменшення суми на ${withdrawMoney} грн: ${userMoney.SumInDollar.toFixed(2)}<br>`)
+        document.write(`<b>Баланс (в доларах) після зменшення суми на ${withdrawMoney} грн:</b> ${userMoney.SumInDollar.toFixed(2)}<br>`)
 
     </script>
 </body>
