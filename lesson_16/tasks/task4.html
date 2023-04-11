@@ -64,6 +64,13 @@
                 } 
                 return false
             }
+
+            toString() {
+                let banknotesList = ''
+                for(const banknote of this.banknotes)
+                    banknotesList += `${banknote}<br>`
+                return banknotesList
+            }
         }
 
 
@@ -128,18 +135,17 @@
             new Banknote(200, 2),
         ]
         const ATM = new TBankomat(banknotes)
-
         const userMoney = parseInt(prompt('Введіть суму, яку бажаєте зняти:'))
+
+        let withdrawCashResult = ''
         if (ATM.withdrawCash(userMoney)) 
-            document.write('<b>Готівка успішно видана!</b><br><br>')
-        else
-            document.write('<b>Банкомат не може видати вам дану суму.</b><br><br>')
+            withdrawCashResult = '<b>Готівка успішно видана!</b>'
+        else 
+            withdrawCashResult = '<b>Банкомат не може видати вам дану суму.</b>'
 
-        document.write(`<b>Доступні банкноти:</b><br>`)
-        for(const banknote of banknotes)
-            document.write(`${banknote}<br>`)
-
-        document.write(`<b>Максимальна сума, яку може видати банкомат:</b> ${ATM.getMaxSum()}<br>
+        document.write(`${withdrawCashResult}<br><br>
+                        <b>Доступні банкноти:</b><br>${ATM}
+                        <b>Максимальна сума, яку може видати банкомат:</b> ${ATM.getMaxSum()}<br>
                         <b>Мінімальна сума, яку може видати банкомат:</b> ${ATM.getMinSum()}<br>`)
 
     </script>
