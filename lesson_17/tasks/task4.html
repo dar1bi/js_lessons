@@ -93,7 +93,7 @@
                 return this.#amount
             }
             set Amount(value) {
-                if (isNaN(value))
+                if (isNaN(value) || value < 0)
                     throw new Error('Incorrect amount of product.')
                 this.#amount = value
             }
@@ -128,6 +128,8 @@
 
             productShipment(productID, shipmentAmount) {
                 const findProduct = this.products.find(object => object.id === productID)
+                if (shipmentAmount > findProduct.Amount)
+                    throw new Error('Incorrect amount of shipment amount.')
                 findProduct.Amount -= shipmentAmount
             }
 

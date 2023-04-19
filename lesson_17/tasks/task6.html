@@ -121,10 +121,30 @@
         // ============================== Клас TestManager ==============================  
 
         class TestManager {
+            #tasksNumber
+            #secondsNumber
             constructor(tasksNumber, secondsNumber) {
-                this.tasksNumber = tasksNumber
-                this.secondsNumber = secondsNumber
+                this.TasksNumber = tasksNumber
+                this.SecondsNumber = secondsNumber
                 this.history = new History()
+            }
+
+            get TasksNumber() {
+                return this.#tasksNumber
+            }
+            set TasksNumber(value) {
+                if (value < 1 || isNaN(value))
+                    throw new Error('Incorrect number of tasks.')
+                this.#tasksNumber = value
+            }
+
+            get SecondsNumber() {
+                return this.#secondsNumber
+            }
+            set SecondsNumber(value) {
+                if (value < 0 || isNaN(value))
+                    throw new Error('Incorrect number of seconds.')
+                this.#secondsNumber = value
             }
 
             createRandomOperation() {
@@ -138,12 +158,12 @@
                     this.createRandomOperation().createTest()
                     timeCounter++
 
-                    if (timeCounter === this.tasksNumber) {
+                    if (timeCounter === this.TasksNumber) {
                         clearInterval(timer)
                         document.write(this.history)
                         console.log(this.history)
                     }   
-                }, this.secondsNumber * 1000)
+                }, this.SecondsNumber * 1000)
             }
         }
 
