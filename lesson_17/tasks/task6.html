@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 17. Класи. Статичні методи. Композиція, агрегація / Задача 6</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 6</h3>
+    <p>
+        Дано два класи MultChecker (клас для перевірки таблиці множення - рандомно генеруються числа, які треба перемножати), AddChecker (клас для перевірки додавання - рандомно генеруються числа у заданому діапазоні, які треба додавати). Обидва класи надсилають результати тестування об'єкту класу History, який зберігає історію тестування у масиві у вигляді об'єктів.
+    </p>
+    <p>Приклад:</p>
+    <p>
+        testsList= [ <br>
+        {firstNum:1, secondNum:5, operation:’*’, userAnswer:7, correctAnswer:5}, <br>
+        {firstNum:3, secondNum:4, operation:’+’, userAnswer:7, correctAnswer:7}, <br>
+        ]
+    </p>
+    <p>
+        Можна створити окремий клас TestData, який описує один такий тест і у якому будуть ці поля. 
+        Розробити клас TestManager, який використовуючи ці класи за допомогою таймера періодично генерує якісь N задач (рандомно вибираємо, що опитувати: додавання чи множення) і проводить опитування. Результати тестування додаються в об’єкт History.  Зробити так, щоб об'єкт такого класу можна було створити тільки один. Коли зроблено ці N задач вивести усю історію на екран.
+    </p>
+    
+    <script src="../js/RandomValues.js"></script>
+    <script>
+
+        // ============================== Клас MultChecker ============================== 
+
+        class MultChecker {
+            constructor() {
+                this.randomNumber1
+                this.randomNumber2
+            }
+
+            createRandomNumbers() {
+                this.randomNumber1 = RandomValues.getRandomNumber(1, 10)
+                this.randomNumber2 = RandomValues.getRandomNumber(1, 10)
+            }
+
+            createTest() {
+                this.createRandomNumbers()
+                const userAnswer = parseInt(prompt(`Скільки буде ${this.randomNumber1} * ${this.randomNumber2}?`))
+                const result = new TestData(this.randomNumber1, this.randomNumber2, '*', userAnswer, this.randomNumber1 * this.randomNumber2).getResultObj()
+
+                new History().addRecord(result)
+            }
+        }
+
+        // ============================== Клас AddChecker ============================== 
+
+        class AddChecker {
+            constructor() {
+                this.randomNumber1
+                this.randomNumber2
+            }
+
+            createRandomNumbers() {
+                this.randomNumber1 = RandomValues.getRandomNumber(1, 10)
+                this.randomNumber2 = RandomValues.getRandomNumber(1, 10)
+            }
+
+            createTest() {
+                this.createRandomNumbers()
+                const userAnswer = parseInt(prompt(`Скільки буде ${this.randomNumber1} + ${this.randomNumber2}?`))
+                const result = new TestData(this.randomNumber1, this.randomNumber2, '+', userAnswer, this.randomNumber1 + this.randomNumber2).getResultObj()
+
+                new History().addRecord(result)
+            }
+        }
+
+        // ============================== Клас TestData ============================== 
+
+        class TestData {
+            constructor(firstNum, secondNum, operation, userAnswer, correctAnswer) {
+                this.firstNum = firstNum
+                this.secondNum = secondNum
+                this.operation = operation
+                this.userAnswer = userAnswer
+                this.correctAnswer = correctAnswer
+            }
+
+            getResultObj() {
+                return {
+                    firstNum: this.firstNum,
+                    secondNum: this.secondNum,
+                    operation: this.operation,
+                    userAnswer: this.userAnswer,
+                    correctAnswer: this.correctAnswer
+                }
+            }
+        }
+
+        // ============================== Клас History ==============================         
+
+        class History {
+            static historyRef
+            constructor() {
+                if(History.historyRef)
+                    return History.historyRef
+
+                this.testsList = []
+                History.historyRef = this
+            }
+
+            addRecord(record) {
+                this.testsList.push(record)
+            }
+
+            toString() {
+                let output = ``
+                for (const line of this.testsList)
+                    output += `firstNum = ${line.firstNum}, secondNum = ${line.secondNum}, operation: ${line.operation}, userAnswer: ${line.userAnswer}, correctAnswer: ${line.correctAnswer}<br>`
+                return output
+            }
+        }
+
+        // ============================== Клас TestManager ==============================  
+
+        class TestManager {
+            constructor(tasksNumber, secondsNumber) {
+                this.tasksNumber = tasksNumber
+                this.secondsNumber = secondsNumber
+                this.history = new History()
+            }
+
+            createRandomOperation() {
+                const operationNum = RandomValues.getRandomNumber(0, 1)
+                return operationNum === 0 ? new MultChecker() : new AddChecker()
+            }
+
+            askUser() {
+                let timeCounter = 0
+                let timer = setInterval(() => {
+                    this.createRandomOperation().createTest()
+                    timeCounter++
+
+                    if (timeCounter === this.tasksNumber) {
+                        clearInterval(timer)
+                        document.write(this.history)
+                        console.log(this.history)
+                    }   
+                }, this.secondsNumber * 1000)
+            }
+        }
+
+        const userTasksNumber = parseInt(prompt('Скільки прикладів бажаєте розвʼязати?'))
+        const secondsAmount = 2
+        const userTest = new TestManager(userTasksNumber, secondsAmount)
+        userTest.askUser()
+
+    </script>
+</body>
+</html>

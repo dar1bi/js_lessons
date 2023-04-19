@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 17. Класи. Статичні методи. Композиція, агрегація / Задача 5</title>
+    <style> body { line-height: 1.5; } </style>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 5</h3>
+    <p>
+        Особиста бібліотека. Картотека домашньої бібліотеки: дані книги (автори (піб, рік народження, короткий опис), назва книги, жанр, видавництво (назва, реєстраційний номер, рік засування)). Реалізувати розділи бібліотеки (спеціальна література, хобі, домашнє господарство і т.д.), походження книги і наявність на даний час. Організувати додавання/вилучення книг та  вибір книг за назвою, за ПІБ автора, за видавництвом.
+    </p>
+    <br>
+    <h2>Розвʼязок</h2>
+    
+    <script>
+
+        // ============================== Клас Author ============================== 
+
+        class Author {
+            constructor(initFullName, initBirthYear, initDescription) {
+                this.fullName = initFullName
+                this.birthYear = initBirthYear
+                this.description = initDescription
+            }
+
+            toString() {
+                return `${this.fullName}, ${this.birthYear} р.н.<br>${this.description}<br>`
+            }
+        }
+
+        // ============================== Клас Publishing ============================== 
+
+        class Publishing {
+            constructor({publTitle, registrationNumber, foundationYear}) {
+                this.publTitle = publTitle
+                this.registrationNumber = registrationNumber
+                this.foundationYear = foundationYear
+            }
+
+            toString() {
+                return `${this.publTitle}, з ${this.foundationYear} р., ${this.registrationNumber}`
+            }
+        }
+
+        // ============================== Клас Book ============================== 
+
+        class Book {
+            constructor(initData) {
+                this.authors = initData.authors
+                this.title = initData.title
+                this.genre = initData.genre
+                this.publishing = new Publishing(initData)
+                this.origin = initData.origin
+            }
+
+            toString() {
+                const authors = this.authors.map(object => object.fullName)
+                return `${this.title}, ${authors.join(', ')}, ${this.genre}, ${this.publishing.publTitle}`
+            }
+        }
+
+        // ============================== Клас LibrarySection ============================== 
+
+        class LibrarySection {
+            constructor(initTitle) {
+                this.title = initTitle
+                this.books = []
+            }
+
+            toString() {
+                const addNewLine = this.books.length !== 0 ? `<br>` : ``
+                return `<u>${this.title}:</u> <br> ${this.books.join('<br>')}${addNewLine}`
+            }
+        }
+
+        // ============================== Клас Library ============================== 
+
+        class Library {
+            constructor(sectionsList, booksList) {
+                this.sections = sectionsList
+                this.books = booksList
+            }
+
+            addBookToSection(book, section) {
+                this.books.push(book)
+                this.sections[section].books.push(book)
+            }
+
+            removeBookFromSection(bookTitle) {
+                this.books = this.books.filter(book => book.title !== bookTitle)
+                for(const section in this.sections)
+                    this.sections[section].books = this.sections[section].books.filter(book => book.title !== bookTitle)  
+            }
+
+            addAllBooksToSections() {
+                let sectionsNames = Object.keys(this.sections)
+                for (const book of this.books) {
+                    const selectedSectionNumbers = prompt(`Виберіть через кому розділи для "${book}":\n\n 1. Спеціальна література\n 2. Хобі\n 3. Домашнє господарство\n 4. Художня література\n 5. Наукова література\n
+                    `).trim().split(',').map(element => parseInt(element) - 1)
+
+                    for (const sectionIndex of selectedSectionNumbers) {
+                        const sectionKey = sectionsNames[sectionIndex]
+                        this.sections[sectionKey].books.push(book)
+                    }
+                }
+            }
+
+            getBookOrigin(bookTitle) {
+                const findBook = this.books.find(book => book.title === bookTitle)
+                return findBook.origin
+            }
+
+            getBookAvailability(bookTitle) {
+                return this.books.find(book => book.title === bookTitle) ? true : false
+            }
+
+            getBookByTitle(bookTitle) {
+                return this.books.find(book => book.title === bookTitle)
+            }
+
+            getBooksByAuthor(authorFullName) {
+                return this.books.reduce((prevVal, book) => {
+                    if (book.authors.find(author => author.fullName === authorFullName) !== undefined) 
+                        prevVal.push(book)
+                    return prevVal
+                }, [])
+            }
+
+            getBooksByPublishing(publTitle) {
+                return this.books.filter(book => book.publishing.publTitle === publTitle)
+            }
+
+            toString() {
+                let sections = ''
+                for(const section in this.sections)
+                    sections += `${this.sections[section]}`
+                return sections
+            }
+        }
+
+        // ============================== Виводимо результат ============================== 
+
+        const userBooksList = [
+            new Book({ 
+                authors: [ 
+                    new Author('Author 1', 1950, 'Description 1'), 
+                    new Author('Author 2', 1960, 'Description 2'), 
+                ],
+                title: 'Title 1',
+                genre: 'Genre 1',
+                publTitle: 'Publishing 1',
+                registrationNumber: 12341234,
+                foundationYear: 1930,
+                origin: 'Origin 1'
+            }),
+            new Book({ 
+                authors: [ 
+                    new Author('Author 3', 1970, 'Description 3')
+                ],
+                title: 'Title 2',
+                genre: 'Genre 2',
+                publTitle: 'Publishing 2',
+                registrationNumber: 56785678,
+                foundationYear: 1940,
+                origin: 'Origin 2'
+            }),
+            new Book({ 
+                authors: [ 
+                    new Author('Author 4', 1980, 'Description 4'), 
+                    new Author('Author 3', 1990, 'Description 3'), 
+                ],
+                title: 'Title 3',
+                genre: 'Genre 3',
+                publTitle: 'Publishing 3',
+                registrationNumber: 34563456,
+                foundationYear: 1950,
+                origin: 'Origin 3'
+            }),
+        ]
+
+        const userSections = {
+            special: new LibrarySection('Спеціальна література'),
+            hobby: new LibrarySection('Хобі'),
+            household: new LibrarySection('Домашнє господарство'),
+            fiction: new LibrarySection('Художня література'),
+            scientific: new LibrarySection('Наукова література'),
+        }
+
+        // Додаємо книги до розділів бібліотеки
+        const userLibrary = new Library(userSections, userBooksList)
+        userLibrary.addAllBooksToSections()
+        document.write(`${userLibrary}<br>`)
+
+        // Видаляємо книгу
+        const bookToRemove = 'Title 1'
+        userLibrary.removeBookFromSection(bookToRemove)
+        document.write(`<b>Видаляємо книгу "${bookToRemove}" з розділів:</b><br>${userLibrary}<br>`)
+
+        // Додаємо нову книгу до секції
+        const newBook = new Book({ 
+            authors: [ 
+                new Author('Author 6', 1980, 'Description 6'), 
+                new Author('Author 7', 1990, 'Description 7'), 
+            ],
+            title: 'Title 4',
+            genre: 'Genre 4',
+            publTitle: 'Publishing 2',
+            registrationNumber: 23452345,
+            foundationYear: 1960,
+            origin: 'Origin 4'
+        })
+        const addToSection = 'scientific'
+        userLibrary.addBookToSection(newBook, addToSection)
+        document.write(`<b>Додаємо нову книгу "${newBook.title}" до розділу "${userSections[addToSection].title}":</b><br>${userLibrary}<br>`)
+        
+        // Пошук книги за назвою
+        const userBookTitle = 'Title 2'
+        document.write(`<b>Пошук книги з назвою "${userBookTitle}":</b><br>${userLibrary.getBookByTitle(userBookTitle)}<br><br>`)
+
+        // Пошук книг за автором
+        const userBookAuthor = 'Author 3'
+        document.write(`<b>Пошук книг за автором ${userBookAuthor}:</b><br>${userLibrary.getBooksByAuthor(userBookAuthor).join('<br>')}<br><br>`)
+
+        // Пошук книг за видавництвом
+        const userBookPublishing = 'Publishing 2'
+        document.write(`<b>Пошук книг за видавництвом "${userBookPublishing}":</b><br>${userLibrary.getBooksByPublishing(userBookPublishing).join('<br>')}<br><br>`)
+
+        // Походження книги
+        const originOfBook = 'Title 4'
+        document.write(`<b>Походження книги "${originOfBook}":</b> ${userLibrary.getBookOrigin(originOfBook)}<br><br>`)
+
+        // Наявність книги за назвою
+        const isAvailableBook = 'Title 1'
+        document.write(`<b>Наявність книги "${isAvailableBook}":</b> ${userLibrary.getBookAvailability(isAvailableBook)}<br><br>`)
+
+    </script>
+</body>
+</html>
