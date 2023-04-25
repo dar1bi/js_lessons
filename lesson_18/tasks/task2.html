@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 18. DOM, BOM, Document. Події / Задача 2</title>
+    <style> body { line-height: 1.5; } </style>
+    <script>
+        function convert(euroRate, dollarRate, uahID, euroID, dollarID) {
+            const sumUAH = parseFloat(document.getElementById(uahID).value)
+            const euroValue = sumUAH / euroRate
+            const dollarValue = sumUAH / dollarRate
+
+            document.getElementById(euroID).value = euroValue.toFixed(2)
+            document.getElementById(dollarID).value = dollarValue.toFixed(2)
+        }
+        window.onload = function () {
+            document.querySelector('button').onclick = () => convert(41, 38, 'sumUAH', 'resultEuro', 'resultDollar')
+        }
+    </script>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 2</h3>
+    <p>
+        Зробити конвертер валют (курси валют – константи у скрипті).
+    </p>
+    <br>
+    <h2>Розвʼязок</h2>
+
+    <div>
+        <label> Сума в гривнях
+            <input id="sumUAH" type="number" value="0">
+        </label>
+    </div>
+    <div>
+        <button>Конвертувати</button>
+    </div>
+    <div>
+        <label> Сума в євро
+            <input id="resultEuro" type="number" value="0">
+        </label>
+    </div>
+    <div>
+        <label> Сума в доларах
+            <input id="resultDollar" type="number" value="0">
+        </label>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 18. DOM, BOM, Document. Події / Задача 1</title>
+    <style> body { line-height: 1.5; } </style>
+    <script>
+        function operationOfTwoNumbers(operation, firstNumID, secondNumID) {
+            const firstNum = parseFloat(document.getElementById(firstNumID).value)
+            const secondNum = parseFloat(document.getElementById(secondNumID).value)
+
+            let result
+            switch(operation) {
+                case '+': result = firstNum + secondNum
+                break
+                case '-': result = firstNum - secondNum
+                break
+                case '*': result = firstNum * secondNum
+                break
+                case '/': result = firstNum / secondNum
+                break
+            }
+            document.getElementById('result').value = result
+        }
+        window.onload = function () {
+            const operations = ['+', '-', '*', '/']
+            for(let i = 0; i < 4; i++) 
+                document.getElementsByTagName('button')[i].onclick = () => operationOfTwoNumbers(operations[i], 'firstNum', 'secondNum')
+        }
+    </script>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 1</h3>
+    <p>
+        Розробити калькулятор.
+    </p>
+    <br>
+    <h2>Розвʼязок</h2>
+
+    <div>
+        <label> First number
+            <input id="firstNum" type="number" value="0">
+        </label>
+    </div>
+    <div>
+        <label> Second number
+            <input id="secondNum" type="number" value="0">
+        </label>
+    </div>
+    <div>
+        <button>Додати</button>
+        <button>Відняти</button>
+        <button>Помножити</button>
+        <button>Поділити</button>
+    </div>
+    <div>
+        <label> Результат
+            <input id="result" type="number" value="0">
+        </label>
+    </div>
+
+</body>
+</html>

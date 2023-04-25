@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 18. DOM, BOM, Document. Події / Задача 5</title>
+    <style> 
+        body { 
+            line-height: 1.5; 
+        } 
+        table, td {
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 15px;
+        }
+    </style>
+    <script src="../js/RandomValues.js"></script>
+    <script>
+        function createRandomTable(rows, columns, minNum, maxNum) {
+            const table = document.createElement('table')
+            for(let i = 0; i < rows; i++) {
+                const tr = document.createElement('tr')
+                table.append(tr)
+                for(let j = 0; j < columns; j++) {
+                    const td = document.createElement('td')
+                    td.innerHTML = RandomValues.getRandomNumber(minNum, maxNum)
+                    tr.append(td)
+                }
+            }
+            document.querySelector('body').append(table)
+        }
+        window.onload = function () {
+            createRandomTable(3, 4, 10, 99)
+        }
+    </script>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 5</h3>
+    <p>
+        Відобразити таблицю 3*4 з випадковими числами (її треба динамічно створити і вставити на сторінку).
+    </p>
+    <br>
+    <h2>Розвʼязок</h2>
+</body>
+</html>

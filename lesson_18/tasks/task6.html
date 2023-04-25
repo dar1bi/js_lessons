@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 18. DOM, BOM, Document. Події / Задача 6</title>
+    <style> 
+        body { 
+            line-height: 1.5; 
+        } 
+        .table {
+            padding-bottom: 15px;
+        }
+    </style>
+    <script>
+        function getAvgScore(gradesAmount) {
+            let sum = 0
+            for(let i = 1; i <= gradesAmount; i++) {
+                const score = parseInt(document.getElementsByTagName('input')[i].value)
+                sum += score
+            }
+            return sum / gradesAmount
+        }
+        
+        function getTable(gradesAmountID) {
+            const gradesAmount = parseInt(document.getElementById(gradesAmountID).value)
+            for(let i = 1; i <= gradesAmount; i++) {
+                const input = document.createElement('input')
+                input.setAttribute('placeholder', `Score ${i}`)
+                const div = document.createElement('div')
+                div.append(input)
+                document.querySelector('body').append(div)
+            }
+            const button = document.createElement('button')
+            button.innerHTML = 'Get sum'
+            document.querySelector('body').append(button)
+
+            button.onclick = function() {
+                const result = document.createElement('div')
+                result.innerHTML = `Average score: ${getAvgScore(gradesAmount)}`
+                document.querySelector('body').append(result)
+            }
+        }
+
+        window.onload = function () {
+            document.getElementById('getTable').onclick = () => getTable('gradesAmount')
+        }
+    </script>
+</head>
+<body>
+
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 6</h3>
+    <p>
+        Користувач задає кількість оцінок і натискає на кнопку «get table». В результаті формується таблиця з input, куди користувач вводить оцінки. Після цього натискає на кнопку “get sum” і знаходить середнє значення.
+    </p>    
+    <br>
+    <h2>Розвʼязок</h2>
+
+    <div>
+        <label> Amount of grades
+            <input id="gradesAmount" type="number" value="">
+        </label>
+    </div>
+    <div class="table">
+        <button id="getTable">Get table</button>
+    </div>
+
+</body>
+</html>

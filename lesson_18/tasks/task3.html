@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 18. DOM, BOM, Document. Події / Задача 3</title>
+    <style> body { line-height: 1.5; } </style>
+    <script>
+        function getUserAge() {
+            const userBirthYear = parseInt(this.value)
+            const userAge = new Date().getFullYear() - userBirthYear
+            document.getElementsByTagName('span')[0].innerHTML = userAge
+        }
+        window.onload = function () {
+            document.getElementById('birthYear').onchange = getUserAge
+        }
+    </script>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 3</h3>
+    <p>
+        Користувач задає рік народження. Визначити кількість років користувача.
+    </p>
+    <br>
+    <h2>Розвʼязок</h2>
+
+    <div>
+        <label> Введіть ваш рік народження
+            <input id="birthYear" type="number" value="">
+        </label>
+    </div>
+    <div>
+        Ваш вік: <span></span>
+    </div>
+
+</body>
+</html>

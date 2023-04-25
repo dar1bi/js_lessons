@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 18. DOM, BOM, Document. Події / Задача 4</title>
+    <style> body { line-height: 1.5; } </style>
+    <script src="../js/RandomValues.js"></script>
+    <script>
+        function getRandomWishes(arr, amount) {
+            const indexArr = []
+            for(let i = 0; i < amount; i++) {
+                let randomIndex
+                do {
+                    randomIndex = RandomValues.getRandomNumber(0, arr.length - 1)
+                } while (indexArr.includes(randomIndex))
+                indexArr.push(randomIndex)
+                
+                let div = document.createElement('div')
+                div.innerHTML = arr[randomIndex]
+                document.querySelector('body').append(div)
+            }
+        }
+        window.onload = function () {
+            const wishesArray = [ 'love', 'peace', 'happy', 'money', 'friends', 'health', 'trips', 'emotions' ]
+            getRandomWishes(wishesArray, 3)
+        }
+    </script>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 4</h3>
+    <p>
+        Наперед задано у скрипті масив зі списком бажань. Після завантаження сторінки випадковим чином вибираються 3 і відображаються у окремих div (їх треба створити і додати на сторінку).
+    </p>
+    <br>
+    <h2>Розвʼязок</h2>
+</body>
+</html>

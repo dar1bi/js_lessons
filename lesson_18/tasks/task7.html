@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 18. DOM, BOM, Document. Події / Задача 7</title>
+    <style> body { line-height: 1.5; } </style>
+    <script>
+        function getTotalSum(transportSelector, foodSelector, guideSelector, resultSelector) {
+            const transportValue = parseFloat(document.querySelector(transportSelector).value)
+            const foodList = document.querySelectorAll(foodSelector)
+
+            let foodValue = 0
+            for (const input of foodList) 
+                if (input.checked) foodValue += parseFloat(input.value)
+      
+            const guideValue = parseFloat(document.querySelector(guideSelector).value)
+            document.querySelector(resultSelector).innerHTML = transportValue + foodValue + guideValue
+        }
+        window.onload = function () {
+            document.getElementById('getSum').onclick = () => getTotalSum('#transport', '#food input', 'input[name="guideType"]:checked', '#totalSum span')
+        }
+    </script>
+</head>
+<body>
+    <h2><a href="./../index.html">Список всіх задач</a></h2>
+    <h3>Задача 7</h3>
+    <p>
+        Подорож складається з 3 етапів. На кожному етапі користувач може вибрати один з видів транспорту (авто, автобус, літак - випадаючий список), харчування (сніданок, обід, вечеря – checkbоx) та одного з 3-х гідів(використати  - radio buttons). Ціни визначте самі. Підрахувати загальну вартість.
+    </p>    
+    <br>
+    <h2>Розвʼязок</h2>
+    
+    <div>
+        <label for="transport"><b>Вид транспорту:</b></label><br>
+        <select id="transport"> 
+            <option value="500">Авто</option>
+            <option value="300">Автобус</option>
+            <option value="1500">Літак</option>
+        </select>
+    </div>
+    <br>
+    <div><b>Харчування:</b></div>
+    <div id="food">
+        <input type="checkbox" id="breakfast" value="100">
+        <label for="breakfast"> Сніданок</label><br>
+        <input type="checkbox" id="lunch" value="150">
+        <label for="lunch"> Обід</label><br>
+        <input type="checkbox" id="dinner" value="200">
+        <label for="dinner"> Вечеря</label><br>
+    </div>
+    <br>
+    <div><b>Гід:</b></div>
+    <div>
+        <input type="radio" id="guide" name="guideType" value="300">
+        <label for="guide">Гід - група</label><br>
+        <input type="radio" id="guideEng" name="guideType" value="400">
+        <label for="guideEng">Гід - група (eng)</label><br>
+        <input type="radio" id="guidePersonal" name="guideType" value="900">
+        <label for="guidePersonal">Персональний гід</label><br>
+    </div>
+    <br>
+    <div><button id="getSum">Розрахувати</button></div>
+    <br>
+    <div id="totalSum">Загальна вартість: <span></span></div>
+</body>
+</html>
